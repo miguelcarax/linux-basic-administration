@@ -33,7 +33,8 @@
 + `/etc/sysctl.d/*.conf` - drop-in directory for kernel sysctl parameters.
 + `/etc/systemd/system/*.target.wants/*.service` - where different systemd targets (like runlevels) units files are located
 + `systemd-cgls` - systemd cgroups info
-+ `systemd.special` - describe basic systemd units
++ `man systemd.special` - describe basic systemd units
++ `man systemd.service` - Service unit configuration
 + `systemctl start /path/to/foo.service`
 + `systemctl` - how the status of everything that systemd controls
 + `systemctl cat docker` - cat the `docker.service` unit file
