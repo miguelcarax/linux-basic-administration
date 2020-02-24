@@ -9,7 +9,11 @@
 + `/boot/initramfs-3.10.0-514.el7.x86_64.img` - Initial RAM filesysmte
 + ``
 
-**Chapter 3 - Monitoring processes"
+**Chapter 3 - Processes**
++ `/proc` - The proc filesystem is a pseudo-filesystem which provides an interface to kernel data structures. Look `man proc`
++ 
+
+**Chapter X - Monitoring processes"
 + `ps xawf -eo pid,user,cgroup,args` - Monitor which process belong to which cgroup
 
 **Chapter 37 - System Startup and Shutdown**
