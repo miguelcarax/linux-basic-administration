@@ -1,8 +1,12 @@
 **BASH**
-+ `compgen -c` - list all system binaries (`$PATH`)
++ `compgen -c` - list all system binaries in `$PATH`
 + `/etc/profile` - executed automatically at login
 + `/home/user/.bashrc`  - is read by every nonlogin shell
 + `~+` - current working directory (`$PWD`)
++ `$_` - final argument in last executed command
++ `sudo !!` - executes last command as sudo
+
+**Monitoring Network**
 
 
 **Monitoring Processes**
@@ -12,6 +16,9 @@
 + `ps -fx` - processes owned by you
 + `ps -fU user -C command` - processed runned by `user` with `command` in execution command
 + `ps -fp 2226,1154,1146` - procssed with pid `x`
++ `ps --forest -e` - show processes in a tree view form
++ `ps -p 1223 -o pid,ppid,fgroup,ni,lstart,etime,cgroup` - custom process output
++ `ps -x -o pid=` - print all processes PID owned by you in a _quiet_ form
 + `top` - provides  a  dynamic real-time view of a running system
 
 **System Startup and Shutdown**
