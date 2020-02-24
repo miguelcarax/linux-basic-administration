@@ -1,33 +1,30 @@
-**misc**
+**BASH**
 + `compgen -c` - list all system binaries (`$PATH`)
-+ `/proc/cmdline` - show with which options was the kernel launched
++ `/etc/profile` - executed automatically at login
++ `/home/user/.bashrc`  - is read by every nonlogin shell
++ `~+` - current working directory (`$PWD`)
 
 
-**Chapter 2 - Linux Filesystem Tree Layout**
-+ `/boot` - stores data used before the kernel begins executing user-mode programs
-+ `/boot/vmlinuz-4.15.0-50-generic` - Linux kernel
-+ `/boot/initramfs-3.10.0-514.el7.x86_64.img` - Initial RAM filesysmte
-+ ``
-
-**Chapter 3 - Processes**
+**Monitoring Processes**
 + `/proc` - The proc filesystem is a pseudo-filesystem which provides an interface to kernel data structures. Look `man proc`
-+ 
-
-**Chapter X - Monitoring processes"
++ `/proc/cmdline` - show with which options was the kernel launched
 + `ps xawf -eo pid,user,cgroup,args` - Monitor which process belong to which cgroup
++ `ps -fx` - processes owned by you
++ `ps -fU user -C command` - processed runned by `user` with `command` in execution command
++ `ps -fp 2226,1154,1146` - procssed with pid `x`
++ `top` - provides  a  dynamic real-time view of a running system
 
-**Chapter 37 - System Startup and Shutdown**
+**System Startup and Shutdown**
 + `/etc/sysconfig/*` - are used when starting, stopping, configuring or querying system services (Red Hat)
 + `/etc/default/*` - same as `sysconfig` but related to Debian
 + `shutdown -h +5` -  halt system in 5 minutes
 + `shutdown -r now` - restart system now
 
-**Chapter 38 - GRUB**
-+ `grubby` - auto-generate `/boot/grub/grub.conf` (also do this `grub2-mkconfig`) based on
-	+ `/etc/grub.d`
-	+ `/etc/default/grub`
+**GRUB**
++ `grubby` - grubby - command line tool used to configure bootloader 
 + `grub2-install /dev/sda ` - Install grub on disk
 + `dracut` - create initial ramdisk images for preloading modules
++ `/boot` - stores data used before the kernel begins executing user-mode programs
 + `/boot/vmlinuz-4.14.72-68.55.amzn1.x86_64` - Linux kernel compressed (`cpio`) file
 + `/boot/initramfs-4.14.72-68.55.amzn1.x86_64.img` - `initramfs` file for kernel
 
@@ -49,6 +46,7 @@
 + `systemctl set-default multi-user.target` - change the default run level in the system
 + `systemctl is-active docker.service`
 + `systemctl daemon-reload docker.service` - Reloads when a new service is created or any configuration is modified.
++ `systemctl reboot` - same as `systemctl start reboot.target --irreversible`
  + Unit files stored in `/etc/systemd/`system override those from `/lib/systemd/system`
 + `/etc/systemd/system/docker.service.d/http-proxy.conf` - unit additional configuration file
 + `systemd-analyze` - get info about systemd startup time
