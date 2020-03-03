@@ -10,7 +10,7 @@
 + `whereis` - locate the binary, source, and manual page files for a command
 + `locate` -  find files by name
 
-+ **Managing software**
+**Managing software**
 + `rpm -qf /etc/httpd` - finds out which paquet the file belongs to  
 + `rpm -ql bash` - list what files does the package has installed
 
