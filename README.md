@@ -26,8 +26,12 @@
 + `/etc/default/*` - same as `sysconfig` but related to Debian
 + `shutdown -h +5` -  halt system in 5 minutes
 + `shutdown -r now` - restart system now
++ Kernel options on problems - `init=/bin/bash`
 
 **GRUB**
++ `grub2-mkconfig`
+ + `/etc/default/grub`
+ + `/etc/grub.d/40-custom`
 + `grubby` - grubby - command line tool used to configure bootloader 
 + `grub2-install /dev/sda ` - Install grub on disk
 + `dracut` - create initial ramdisk images for preloading modules
@@ -49,9 +53,11 @@
 + `systemctl list-units -t service --all`
 + `systemctl list-units -t service` - list active units
 + `systemctl list-unit-files --type=service` - list installed units
++ `systemctl list-dependencies rescue.target` - list all units involved in `rescue.target`
 + `systemctl enable sshd.service --now` - enable and start `sshd`
 + `systemctl set-default multi-user.target` - change the default run level in the system
 + `systemctl is-active docker.service`
++ `systemctl isolate rescue.target` - Change execution mode to `rescue.target`
 + `systemctl daemon-reload docker.service` - Reloads when a new service is created or any configuration is modified.
 + `systemctl reboot` - same as `systemctl start reboot.target --irreversible`
  + Unit files stored in `/etc/systemd/`system override those from `/lib/systemd/system`
