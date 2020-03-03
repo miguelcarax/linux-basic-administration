@@ -5,8 +5,29 @@
 + `~+` - current working directory (`$PWD`)
 + `$_` - final argument in last executed command
 + `sudo !!` - executes last command as sudo
++ `bash` reads `~/.bash_profile` in login mode and `~/.bashrc` in nonlogin mode
+
++ `whereis` - locate the binary, source, and manual page files for a command
++ `locate` -  find files by name
+
++ **Managing software**
++ `rpm -qf /etc/httpd` - finds out which paquet the file belongs to  
++ `rpm -ql bash` - list what files does the package has installed
+
+
+**Man**
++ Man pages are stored in `/usr/share/man` and compressed in gzip format. `man` is able to decompress it on the fly
 
 **Monitoring Network**
+
+**Managing users**
++ `su - julian` - Impersonate as `julian` user. `-` option will provoke to act if it was a user login
++ `/etc/sudoers` - `pablelas ALL = ( ALL : ALL) NOPASSWD: ALL` - Full `root` access to `pablelas` user
++ `passwd -l` - locks an account by prepending a ! to the encrypted password (`/etc/shadow`)
++ shells should be set to `/bin/false` or `/bin/nologin` to protect against remote login
+
+**Filesystems**
++ `mount -o nosuid /dev/sda1 /home/alonso` - mount `/dev/sda1` filesystem without allowing using `setuid` executables in it.
 
 
 **Monitoring Processes**
