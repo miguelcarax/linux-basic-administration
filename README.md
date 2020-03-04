@@ -1,3 +1,5 @@
+# Linux Administration Basics
+
 **BASH**
 + `compgen -c` - list all system binaries in `$PATH`
 + `/etc/profile` - executed automatically at login
@@ -14,6 +16,16 @@
 + `rpm -qf /etc/httpd` - finds out which paquet the file belongs to  
 + `rpm -ql bash` - list what files does the package has installed
 
+**Signals**
++ `man 7 signal` - overview of signals
++ `kill -s SIGTERM 5776`
++ `kill -15 1234`
++ `pkill python`
++ `pkill -u pablelas` + kill all `pablelas`' processes
+
+**Processes**
+
+
 
 **Man**
 + Man pages are stored in `/usr/share/man` and compressed in gzip format. `man` is able to decompress it on the fly
@@ -26,12 +38,33 @@
 + `passwd -l` - locks an account by prepending a ! to the encrypted password (`/etc/shadow`)
 + shells should be set to `/bin/false` or `/bin/nologin` to protect against remote login
 
-**Filesystems**
+**Filesystems and System Tree Layout**
++ `man hier` - information about tipical linux directories `var`, `etc`, `usr`, etc.
 + `mount -o nosuid /dev/sda1 /home/alonso` - mount `/dev/sda1` filesystem without allowing using `setuid` executables in it.
++ `mount` - list mounted filesystems
++ `man proc` - shows `/proc` filesystem information
++ `umount -l /home/alonso` - umount filesystem lazily, when opened files are closed
++ `fuser -vc /home/alonso` - list information of processes who have opened files in the filesystem mountpoint
++ `file /bin/ping` - determine file type
++ `ln -s <src> <dest>` - remember the same syntax as `cp` command
++ _search_ or _scan_ bit allows the directory to be entered or passed through as a pathname is evaluated,
+but not to have its contents listed
++ The bits with octal values `4000` and `2000` are the setuid and setgid bits.
++ When set on a directory, the `setgid` bit causes newly created files within the directory to take on the group ownership of the directory rather than the default group of the user that created the file
++ If the sticky bit (`1000`) is set on a directory, the filesystem won’t allow you to delete or rename
+a file unless you are the owner of the directory, the owner of the file, or the
+superuse
++ `ls -li` - list files on current directory including _inode_ number.
++ `ls -lrsta /tmp` - list all files in `/tmp` sorted ascended by modification time
++ `ls -F dir` - show files distingishing between kinds of files 
++ `chmod ug=rw,o=r file` - fives r/w permission to owner and group, and read permission to others
++ `chmod a-x file` - removes execute permission for all categories (owner/group/other)
++ `chmod --reference=filea fileb` - makes fileb’s mode the same as filea’s
++ `find mydir -type f -exec chmod a-x {} ';'` - change permissions only to _files_ rather than both _files_ and _dirs_.
++ `chown user1:group1 -R dir` - change recursively owner and group of all files within `dir`
 
 
 **Monitoring Processes**
-+ `/proc` - The proc filesystem is a pseudo-filesystem which provides an interface to kernel data structures. Look `man proc`
 + `/proc/cmdline` - show with which options was the kernel launched
 + `ps xawf -eo pid,user,cgroup,args` - Monitor which process belong to which cgroup
 + `ps -fx` - processes owned by you
@@ -40,7 +73,20 @@
 + `ps --forest -e` - show processes in a tree view form
 + `ps -p 1223 -o pid,ppid,fgroup,ni,lstart,etime,cgroup` - custom process output
 + `ps -x -o pid=` - print all processes PID owned by you in a _quiet_ form
++ `ps -ef --sort +pid` - list all system processes sorted by ascend PID
 + `top` - provides  a  dynamic real-time view of a running system
++ `ps` and `top` read from `/proc`
++ `/usr/bin/nice -n5 date` - launch `date` command with 5 points increased _niceness_
++ `sudo /usr/bin/renice -n -10 24247` - renice process `24247` to -10 priority
++ `/proc/<pid>/maps` -  show what libraries the process depends on
++ `/proc/<pid>/fd` - file descriptors opened by the process. Can contain symlinks to real files
++ `strace` - shows system calls trace from a process
++ `crontab -e` - edit user crontab file
++ `crontab -l` - list user crontabs
++ `minute hour dom month weekday command` - crontab line format
++ `20 1 * * * find /tmp -mtime +7 -type f -exec rm -f { } ';'` - crontab, it removes all files in the `/tmp` directory
+that have not been modified in 7 days.
++ `systemd` defines `timers` that like `cron` execute a system process on a predefined schedule. More info in `man systemd.timer`
 
 **System Startup and Shutdown**
 + `/etc/sysconfig/*` - are used when starting, stopping, configuring or querying system services (Red Hat)
