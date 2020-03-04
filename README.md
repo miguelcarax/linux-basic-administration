@@ -62,6 +62,18 @@ superuse
 + `chmod --reference=filea fileb` - makes fileb’s mode the same as filea’s
 + `find mydir -type f -exec chmod a-x {} ';'` - change permissions only to _files_ rather than both _files_ and _dirs_.
 + `chown user1:group1 -R dir` - change recursively owner and group of all files within `dir`
++ `umask 0222` - set the octal permission to *remove* from the new created files. It will do a NAND operation with default creation permissions
++ `umask 027` - denie all permission from _others_ and write permission for _group_ to all new created files.
++ `umask` only applies to current session.
++ `chattr` - change file attributes
++ `lsattr` - list file attributes
++ `setfacl -m user:julian:rwx file` - allow `julian` user to read, write, execute via ACL permissions.
++ `setfacl -m default:group:datascientist:r-x dir` -  set default ACLs por group `datascientist` in `dir`
++ `setfacl -R -x other::rwx dir` - remove `rwx` permission from `others` in `dir` recursively.
++ `setfacl -m default:mask:0222 dir` - set default `mask` for `dir`. This `mask` is an AND operation rather than the NAND operation of `umask` command.
++ entries for named users, named groups, and the default group can include permission bits that are not present in the mask, but filesystems simply ignore them.
++ `setfacl-n` option to prevent setfacl from regenerate the `mask` when modifying current ACLs
++ `getfacl file` - list `file` ACLs
 
 
 **Monitoring Processes**
