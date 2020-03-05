@@ -32,9 +32,10 @@
 + `/etc/passwd` - is a list of users recognized by the system.
 + `su - julian` - Impersonate as `julian` user. `-` option will provoke to act if it was a user login
 + `/etc/sudoers` - `pablelas ALL = ( ALL : ALL) NOPASSWD: ALL` - Full `root` access to `pablelas` user
++ Most distributions establish a different path for finding executables for normal users as compared to root users. In particular the directories `/sbin` and `/usr/sbin` are not searched, since `sudo` inherits the `PATH` of the user, not the full root user
 + `passwd -l` - locks an account by prepending a ! to the encrypted password (`/etc/shadow`)
 + shells should be set to `/bin/false` or `/bin/nologin` to protect against remote login
-+ `sudo authconfig --passalgo=sha512 --update` - change the algorith to cypher the user password stored in `/etc/shadow`
++ `authconfig --passalgo=sha512 --update` - change the algorith to cypher the user password stored in `/etc/shadow`
 + `chage -d 0 username` - invalidate user password and force update
 + `chsh -s /bin/zsh username` - change `username` default shell
 + `usermod -e 2020-01-01 username` - disable `username` user account at the date supplied
@@ -42,8 +43,9 @@
 + `/etc/profile.d/example.sh` - Same as above
 + `/etc/login.defs` and `/etc/default/useradd` - default options for `useradd` command
 + `useradd -D -s /bin/bash` - set `bash` as default shell for all new created users, modify `/etc/default/useradd` file
-+ `sudo useradd -c "David Hilbert" -d /home/math/hilbert -g hilbert -G faculty -m -s /bin/tcsh hilbert`
-+ `sudo find filesystem -xdev -nouser` - check for orphaned files after a user has been removed
++ `useradd -c "David Hilbert" -d /home/math/hilbert -g hilbert -G faculty -m -s /bin/tcsh hilbert`
++ `gpasswd --delete miguelones sudo` - remove `miguelones` user from `sudo` group
++ `find filesystem -xdev -nouser` - check for orphaned files after a user has been removed
 + `usermod -L username` - lock `username` account, this disables login. 
 + `chsh -s /bin/nologin username` -  disables `username` user to login
 
@@ -84,7 +86,11 @@ superuse
 + entries for named users, named groups, and the default group can include permission bits that are not present in the mask, but filesystems simply ignore them.
 + `setfacl-n` option to prevent setfacl from regenerate the `mask` when modifying current ACLs
 + `getfacl file` - list `file` ACLs
++ `du --max-depth 1 -hx /` - View root directory usage considering only the `/` filesytem and not the other directories within it with dedicated filesystems.
++ `lsblk` who lists all _block devices_ depends on `/sys/dev/block`
 
+**Managing Processes**
++ `ipcs` -  default it shows information about all three resources: shared memory segments, message queues, and semaphore arrays.
 
 **Monitoring Processes**
 + `/proc/cmdline` - show with which options was the kernel launched
