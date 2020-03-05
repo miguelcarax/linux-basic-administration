@@ -1,6 +1,7 @@
 # Linux Administration Basics
 
 **BASH**
+
 + `compgen -c` - list all system binaries in `$PATH`
 + `/etc/profile` - executed automatically at login
 + `/home/user/.bashrc`  - is read by every nonlogin shell
@@ -8,7 +9,6 @@
 + `$_` - final argument in last executed command
 + `sudo !!` - executes last command as sudo
 + `bash` reads `~/.bash_profile` in login mode and `~/.bashrc` in nonlogin mode
-
 + `whereis` - locate the binary, source, and manual page files for a command
 + `locate` -  find files by name
 
@@ -182,7 +182,7 @@ that have not been modified in 7 days.
 + `/etc/logrotate.conf` - configuration for `logrotate` daemon
 
 
-** Biografía **
+**Biografía**
 + Rethinking PID 1 - http://0pointer.de/blog/projects/systemd.html
 + Systemd webpage - https://www.freedesktop.org/wiki/Software/systemd/
 + ¿What is the purpose of the `initramfs` file?  - https://wiki.gentoo.org/wiki/Initramfs/Guide
