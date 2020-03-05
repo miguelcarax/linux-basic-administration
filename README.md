@@ -23,20 +23,30 @@
 + `pkill python`
 + `pkill -u pablelas` + kill all `pablelas`' processes
 
-**Processes**
-
-
-
 **Man**
 + Man pages are stored in `/usr/share/man` and compressed in gzip format. `man` is able to decompress it on the fly
 
 **Monitoring Network**
 
 **Managing users**
++ `/etc/passwd` - is a list of users recognized by the system.
 + `su - julian` - Impersonate as `julian` user. `-` option will provoke to act if it was a user login
 + `/etc/sudoers` - `pablelas ALL = ( ALL : ALL) NOPASSWD: ALL` - Full `root` access to `pablelas` user
 + `passwd -l` - locks an account by prepending a ! to the encrypted password (`/etc/shadow`)
 + shells should be set to `/bin/false` or `/bin/nologin` to protect against remote login
++ `sudo authconfig --passalgo=sha512 --update` - change the algorith to cypher the user password stored in `/etc/shadow`
++ `chage -d 0 username` - invalidate user password and force update
++ `chsh -s /bin/zsh username` - change `username` default shell
++ `usermod -e 2020-01-01 username` - disable `username` user account at the date supplied
++ `/etc/profile` - system wide user configuration file. Read by `bash` and `sh`
++ `/etc/profile.d/example.sh` - Same as above
++ `/etc/login.defs` and `/etc/default/useradd` - default options for `useradd` command
++ `useradd -D -s /bin/bash` - set `bash` as default shell for all new created users, modify `/etc/default/useradd` file
++ `sudo useradd -c "David Hilbert" -d /home/math/hilbert -g hilbert -G faculty -m -s /bin/tcsh hilbert`
++ `sudo find filesystem -xdev -nouser` - check for orphaned files after a user has been removed
++ `usermod -L username` - lock `username` account, this disables login. 
++ `chsh -s /bin/nologin username` -  disables `username` user to login
+
 
 **Filesystems and System Tree Layout**
 + `man hier` - information about tipical linux directories `var`, `etc`, `usr`, etc.
@@ -155,23 +165,17 @@ that have not been modified in 7 days.
 + `hostnamectl` - control the system hostname
 + `timedatectl` - control the system time and date
 + `loginctl` - control the systemd login manager
-+ ``
-+ ``
-+ ``
-+ ``
-+ ``
-+ ``
-+ ``
-+ ``
-+ ``
-+ ``
-+ ``
-+ ``
-+ ``
-+ ``
-+ ``
-+ ``
-+ ``
+
+**Logging**
++ `lastlog` - reports the most recent login of all users or of a given user out of `/var/log/lastlog`
++ `systemd journal` has volatile logs by default, they do not survive between restarts
++ `journalctl --since=yesterday --until=now --unit=docker` - show all logs of `docker` from yesterday up to now
++ `journalctl -n 100 /usr/sbin/sshd` - list the last 100 journal entries of the `sshd` daemon
++ `journalctl --grep=ERROR --unit=httpd` - show journal entries with ERROR pattern of the `httpd` daemon
++ `journalctl -b 0 -u ssh` - list `ssh` entries from the boot `0` (more recent one)
++ `journalctl --dmesg` - show kernel journal entries
++ `journalctl --unit sshd --output json` -  output the journal entries in JSON format
+
 
 ** Biografía **
 + Rethinking PID 1 - http://0pointer.de/blog/projects/systemd.html
