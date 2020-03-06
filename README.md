@@ -13,6 +13,7 @@
 + `locate` -  find files by name
 + `env` - print environment variables in current sesion
 + `!88` - execute command `88` in shell history
++ `type` - Indicate how a command name is interpreted
 
 **Managing software**
 + `rpm -qf /etc/httpd` - finds out which paquet the file belongs to  
