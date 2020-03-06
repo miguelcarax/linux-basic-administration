@@ -11,6 +11,7 @@
 + `bash` reads `~/.bash_profile` in login mode and `~/.bashrc` in nonlogin mode
 + `whereis` - locate the binary, source, and manual page files for a command
 + `locate` -  find files by name
++ `env` - print environment variables in current sesion
 
 **Managing software**
 + `rpm -qf /etc/httpd` - finds out which paquet the file belongs to  
@@ -49,6 +50,15 @@
 + `usermod -L username` - lock `username` account, this disables login. 
 + `chsh -s /bin/nologin username` -  disables `username` user to login
 
+**Managing files**
++ `dd if=/dev/zero of=/tmp/file bs=1M count=100` - create a file with _zeros_ with size `1MB` * `100`
++ `tar -cf file.bzip2 --bzip file` - create a `bzip2` tarball
++ `tar -czf file.tar.gz file` - create a `gzip` tarball
++ `tar -tf file.tar.gz` - list the content of the tarball `file.tar.gz`
++ `tar -xzvf file.tar.gz` - untar `file.tar.gz` tarball
++ `tar -cf file.tar.xz --xz file` - create a `xz` tarball
++ `tar-xf file.tar -C /tmp/dir` - untar `file.tar` in `/tmp/dir`
++ `tar -cjf tarball-content.tar.bz tarball-content.tar` - further compress a `tar` file with `bzip2` compress
 
 **Filesystems and System Tree Layout**
 + `man hier` - information about tipical linux directories `var`, `etc`, `usr`, etc.
@@ -157,7 +167,7 @@ that have not been modified in 7 days.
 + `systemctl reboot` - same as `systemctl start reboot.target --irreversible`
  + Unit files stored in `/etc/systemd/`system override those from `/lib/systemd/system`
 + `/etc/systemd/system/docker.service.d/http-proxy.conf` - unit additional configuration file
-+ `systemd-analyze` - get info about systemd startup time
++ `systemd-analyze blame` - get info about systemd startup time order by unit time
 + `/run/systemd` - systemd places its local communications sockets
 + `/sbin/telinit 5` - change the runlevel of the system
 + `/etc/inittab` - determines which level should be the system run
