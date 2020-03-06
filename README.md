@@ -10,6 +10,7 @@
 + `sudo !!` - executes last command as sudo
 + `bash` reads `~/.bash_profile` in login mode and `~/.bashrc` in nonlogin mode
 + `whereis` - locate the binary, source, and manual page files for a command
++ `whatis date` - one-line information about the command
 + `locate` -  find files by name
 + `env` - print environment variables in current sesion
 + `!88` - execute command `88` in shell history
@@ -62,6 +63,7 @@
 + `tar -xf file.tar -C /tmp/dir` - untar `file.tar` in `/tmp/dir`
 + `tar -cjf tarball-content.tar.bz tarball-content.tar` - further compress a `tar` file with `bzip2` compress
 + `gzip` for compress and `gunzip` for decompress
++ `find ~ -type f -name 'foo*' -exec ls -l '{}' +` - the `+` indicates that all founds possibilities will be passed to the `ls` command rather than executing `ls` for each ocurrence
 
 **Filesystems and System Tree Layout**
 + `man hier` - information about tipical linux directories `var`, `etc`, `usr`, etc.
