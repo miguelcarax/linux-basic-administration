@@ -12,6 +12,7 @@
 + `whereis` - locate the binary, source, and manual page files for a command
 + `locate` -  find files by name
 + `env` - print environment variables in current sesion
++ `!88` - execute command `88` in shell history
 
 **Managing software**
 + `rpm -qf /etc/httpd` - finds out which paquet the file belongs to  
@@ -54,11 +55,12 @@
 + `dd if=/dev/zero of=/tmp/file bs=1M count=100` - create a file with _zeros_ with size `1MB` * `100`
 + `tar -cf file.bzip2 --bzip file` - create a `bzip2` tarball
 + `tar -czf file.tar.gz file` - create a `gzip` tarball
-+ `tar -tf file.tar.gz` - list the content of the tarball `file.tar.gz`
++ `tar -tvf file.tar.gz` - list the content of the tarball `file.tar.gz`
 + `tar -xzvf file.tar.gz` - untar `file.tar.gz` tarball
 + `tar -cf file.tar.xz --xz file` - create a `xz` tarball
 + `tar-xf file.tar -C /tmp/dir` - untar `file.tar` in `/tmp/dir`
 + `tar -cjf tarball-content.tar.bz tarball-content.tar` - further compress a `tar` file with `bzip2` compress
++ `gzip` for compress and `gunzip` for decompress
 
 **Filesystems and System Tree Layout**
 + `man hier` - information about tipical linux directories `var`, `etc`, `usr`, etc.
