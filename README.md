@@ -58,7 +58,7 @@
 + `tar -tvf file.tar.gz` - list the content of the tarball `file.tar.gz`
 + `tar -xzvf file.tar.gz` - untar `file.tar.gz` tarball
 + `tar -cf file.tar.xz --xz file` - create a `xz` tarball
-+ `tar-xf file.tar -C /tmp/dir` - untar `file.tar` in `/tmp/dir`
++ `tar -xf file.tar -C /tmp/dir` - untar `file.tar` in `/tmp/dir`
 + `tar -cjf tarball-content.tar.bz tarball-content.tar` - further compress a `tar` file with `bzip2` compress
 + `gzip` for compress and `gunzip` for decompress
 
