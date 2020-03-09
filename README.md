@@ -3,26 +3,34 @@
 **BASH**
 
 + `compgen -c` - list all system binaries in `$PATH`
-+ `/etc/profile` - executed automatically at login
-+ `/home/user/.bashrc`  - is read by every nonlogin shell
 + `~+` - current working directory (`$PWD`)
 + `$_` - final argument in last executed command
 + `sudo !!` - executes last command as sudo
 + `bash` reads `~/.bash_profile` in login mode and `~/.bashrc` in nonlogin mode
-+ `whereis` - locate the binary, source, and manual page files for a command
++ `whereis date` - locate the binary, source, and manual page files for a command
 + `whatis date` - one-line information about the command
 + `locate` -  find files by name
-+ `env` - print environment variables in current sesion
++ `env` - print environment and shell variables in current sesion
++ `printenv SHELL` - print `SHELL` var value
 + `!88` - execute command `88` in shell history
 + `type` - Indicate how a command name is interpreted
++ `ls -1 [[:upper:]]*` - print all files which start with an upper case letter
++ `touch file{001..5}` - create `file001`, `file002` and `file003`
++ `touch {A{1,2},B{3,4}}b` - create `aA1b`, `aA2b`, `aB3b`, `aB4b`
++ `mkdir {2007..2009}-{01..12}`
++ _By default, word splitting looks for the presence of spaces, tabs, and newlines (line feed characters) and treats them as delimiters between words. This means unquoted spaces, tabs, and newlines are not considered to be part of the text_
++ files loaded in login shells - `/etc/profile` and `~/.bash_profile` (usually `~/.bashrc` too)
++ files loaded in non-login shells - `~/.bashrc`
 
 **Managing software**
 + `rpm -qf /etc/httpd` - finds out which paquet the file belongs to  
 + `rpm -ql bash` - list what files does the package has installed
++ `rpm -U iperf` - upgrade `iperf` package
 
 **Signals**
 + `man 7 signal` - overview of signals
 + `kill -s SIGTERM 5776`
++ `killall -u USER` - kill all `USER` processes
 + `kill -15 1234`
 + `pkill python`
 + `pkill -u pablelas` + kill all `pablelas`' processes
@@ -34,7 +42,7 @@
 
 **Managing users**
 + `/etc/passwd` - is a list of users recognized by the system.
-+ `su - julian` - Impersonate as `julian` user. `-` option will provoke to act if it was a user login
++ `su - julian` - Impersonate as `julian` user. `-` option will provoke to act if it was a user login loading `julian` environment variables and changing to `julian` home dir
 + `/etc/sudoers` - `pablelas ALL = ( ALL : ALL) NOPASSWD: ALL` - Full `root` access to `pablelas` user
 + Most distributions establish a different path for finding executables for normal users as compared to root users. In particular the directories `/sbin` and `/usr/sbin` are not searched, since `sudo` inherits the `PATH` of the user, not the full root user
 + `passwd -l` - locks an account by prepending a ! to the encrypted password (`/etc/shadow`)
@@ -87,6 +95,7 @@ superuse
 + `chmod ug=rw,o=r file` - fives r/w permission to owner and group, and read permission to others
 + `chmod a-x file` - removes execute permission for all categories (owner/group/other)
 + `chmod --reference=filea fileb` - makes fileb’s mode the same as filea’s
++ `chmod u+s /bin/executable` - set `setuid` (`4000`) bit in `/bin/executable`
 + `find mydir -type f -exec chmod a-x {} ';'` - change permissions only to _files_ rather than both _files_ and _dirs_.
 + `chown user1:group1 -R dir` - change recursively owner and group of all files within `dir`
 + `umask 0222` - set the octal permission to *remove* from the new created files. It will do a NAND operation with default creation permissions
