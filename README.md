@@ -77,6 +77,7 @@
 + `man hier` - information about tipical linux directories `var`, `etc`, `usr`, etc.
 + `mount -o nosuid /dev/sda1 /home/alonso` - mount `/dev/sda1` filesystem without allowing using `setuid` executables in it.
 + `mount` - list mounted filesystems
++ `mount -t iso9660 -o loop image.iso /mnt/iso_image` - mount ISO file as a device
 + `man proc` - shows `/proc` filesystem information
 + `umount -l /home/alonso` - umount filesystem lazily, when opened files are closed
 + `fuser -vc /home/alonso` - list information of processes who have opened files in the filesystem mountpoint
