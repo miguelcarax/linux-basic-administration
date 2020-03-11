@@ -7,8 +7,10 @@
 + `$_` - final argument in last executed command
 + `sudo !!` - executes last command as sudo
 + `bash` reads `~/.bash_profile` in login mode and `~/.bashrc` in nonlogin mode
++ `uname -v` - print kernel version
 + `whereis date` - locate the binary, source, and manual page files for a command
 + `whatis date` - one-line information about the command
++ `whoami` -  print effective userid
 + `locate` -  find files by name
 + `env` - print environment and shell variables in current sesion
 + `printenv SHELL` - print `SHELL` var value
@@ -37,6 +39,8 @@
 
 **Man**
 + Man pages are stored in `/usr/share/man` and compressed in gzip format. `man` is able to decompress it on the fly
++ `man man`
++ `man -k keyword` - let's you find _commands_ based on `keyword`
 
 **Monitoring Network**
 
@@ -62,6 +66,7 @@
 + `chsh -s /bin/nologin username` -  disables `username` user to login
 
 **Managing files**
++ `file` - determine file type
 + `dd if=/dev/zero of=/tmp/file bs=1M count=100` - create a file with _zeros_ with size `1MB` * `100`
 + `tar -cf file.bzip2 --bzip file` - create a `bzip2` tarball
 + `tar -czf file.tar.gz file` - create a `gzip` tarball
@@ -72,6 +77,8 @@
 + `tar -cjf tarball-content.tar.bz tarball-content.tar` - further compress a `tar` file with `bzip2` compress
 + `gzip` for compress and `gunzip` for decompress
 + `find ~ -type f -name 'foo*' -exec ls -l '{}' +` - the `+` indicates that all founds possibilities will be passed to the `ls` command rather than executing `ls` for each ocurrence
++ `find /etc -type f -exec grep -l miguel '{}' \; -exec cp '{}' /tmp \;` - concatenate 2 `-exec` for the same found files
++ `find /etc/ -type f -exec grep -l "127.0.0.1" "{}" "+"`
 
 **Filesystems and System Tree Layout**
 + `man hier` - information about tipical linux directories `var`, `etc`, `usr`, etc.
