@@ -2,6 +2,7 @@
 
 **BASH**
 
++ `/etc/environment` is the first file loaded by `bash` shell
 + `compgen -c` - list all system binaries in `$PATH`
 + `~+` - current working directory (`$PWD`)
 + `$_` - final argument in last executed command
@@ -23,6 +24,7 @@
 + _By default, word splitting looks for the presence of spaces, tabs, and newlines (line feed characters) and treats them as delimiters between words. This means unquoted spaces, tabs, and newlines are not considered to be part of the text_
 + files loaded in login shells - `/etc/profile` and `~/.bash_profile` (usually `~/.bashrc` too)
 + files loaded in non-login shells - `~/.bashrc`
++ `aliases` and exported `variables` are inhereited by sub-shells
 
 **Managing software**
 + `rpm -qf /etc/httpd` - finds out which paquet the file belongs to  
@@ -79,6 +81,25 @@
 + `find ~ -type f -name 'foo*' -exec ls -l '{}' +` - the `+` indicates that all founds possibilities will be passed to the `ls` command rather than executing `ls` for each ocurrence
 + `find /etc -type f -exec grep -l miguel '{}' \; -exec cp '{}' /tmp \;` - concatenate 2 `-exec` for the same found files
 + `find /etc/ -type f -exec grep -l "127.0.0.1" "{}" "+"`
++ `sed [address] operation [options]` - `sed` command syntax
++ `sed '' file` - same as `cat file`
++ `sed -n '1,5p' file` - print from line `1` to line `5`
++ `sed -n '1,+4p' file` - print from line `1` to line `1+4`
++ `sed -n '1,$p' file` - print from line `1` to the last line (`$`)
++ `sed -n '1~2p' file` - print line `1`, `3`, `5`, `7`, etc
++ `sed -n '1,3,8,12p' file` - print line `1`, `3`, `8` y `12` 
++ `sed '1d;$d' file` - delete the first and the last line
++ `sed '1!d' file` - delete all lines but the first
++ `sed -n '/^$/!p'` - print all non-blank lines
++ `sed '/^[[:upper:]]/d'` - delete all lines starting with uppercase letters
++ `sed 's/[[:alpha:]]\+/"&"/g' file` - put every word within double quotes
++ `sed 's/^.*$/&;/g' file` - put a `;` at the end of all lines
++ `sed G file` - put a empty line between every line and the next one
++ `sed 's:abc:def:g' file` is the same as `sed 's/abc/def/g' file` as  `sed 's|abc|def|g' file`
++ `sed 's/\([a-z]*\).*/\1/' file` - keep the first ocurrence (`\1`) of `[a-z]*` and delete the rest of the line content
++ `sed '/^#/ !s/.*/#&/g' file` - comment all lines `#` that are not already commented
++ `sed '$r file1' file2` - concatenate the content `file1` at the end of `file2`
++ `grep -w alex file` - will match lines with `alex` word but not `alexander`
 
 **Filesystems and System Tree Layout**
 + `man hier` - information about tipical linux directories `var`, `etc`, `usr`, etc.
