@@ -55,6 +55,8 @@
 + shells should be set to `/bin/false` or `/bin/nologin` to protect against remote login
 + `authconfig --passalgo=sha512 --update` - change the algorith to cypher the user password stored in `/etc/shadow`
 + `chage -d 0 username` - invalidate user password and force update
++ `passwd -d usename` - invalidate user password and force update
++ An `INACTIVE` account may not login
 + `chsh -s /bin/zsh username` - change `username` default shell
 + `usermod -e 2020-01-01 username` - disable `username` user account at the date supplied
 + `/etc/profile` - system wide user configuration file. Read by `bash` and `sh`
@@ -65,7 +67,10 @@
 + `gpasswd --delete miguelones sudo` - remove `miguelones` user from `sudo` group
 + `find filesystem -xdev -nouser` - check for orphaned files after a user has been removed
 + `usermod -L username` - lock `username` account, this disables login. 
++ `usermod -aG docker miguelones` - add `miguelones` user to `docker` group
 + `chsh -s /bin/nologin username` -  disables `username` user to login
++ `w` - shows you who is currently loged-in
++ `who` - show who is logged on
 
 **Managing files**
 + `file` - determine file type
@@ -100,6 +105,7 @@
 + `sed '/^#/ !s/.*/#&/g' file` - comment all lines `#` that are not already commented
 + `sed '$r file1' file2` - concatenate the content `file1` at the end of `file2`
 + `grep -w alex file` - will match lines with `alex` word but not `alexander`
++ `grep -C1 username file` - print the line(s) matched, the above one, and the below one
 
 **Filesystems and System Tree Layout**
 + `man hier` - information about tipical linux directories `var`, `etc`, `usr`, etc.
