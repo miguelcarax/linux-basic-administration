@@ -110,15 +110,6 @@
 + `sed '$r file1' file2` - concatenate the content `file1` at the end of `file2`
 + `grep -w alex file` - will match lines with `alex` word but not `alexander`
 + `grep -C1 username file` - print the line(s) matched, the above one, and the below one
-
-**Filesystems and System Tree Layout**
-+ `man hier` - information about tipical linux directories `var`, `etc`, `usr`, etc.
-+ `mount -o nosuid /dev/sda1 /home/alonso` - mount `/dev/sda1` filesystem without allowing using `setuid` executables in it.
-+ `mount` - list mounted filesystems
-+ `mount -t iso9660 -o loop image.iso /mnt/iso_image` - mount ISO file as a device
-+ `man proc` - shows `/proc` filesystem information
-+ `umount -l /home/alonso` - umount filesystem lazily, when opened files are closed
-+ `fuser -vc /home/alonso` - list information of processes who have opened files in the filesystem mountpoint
 + `file /bin/ping` - determine file type
 + `ln -s <src> <dest>` - remember the same syntax as `cp` command
 + _search_ or _scan_ bit allows the directory to be entered or passed through as a pathname is evaluated,
@@ -131,10 +122,13 @@ superuse
 + `ls -li` - list files on current directory including _inode_ number.
 + `ls -lrsta /tmp` - list all files in `/tmp` sorted ascended by modification time
 + `ls -F dir` - show files distingishing between kinds of files 
++ `dir` default permissions is `777`, file default permission is `666`
 + `chmod ug=rw,o=r file` - fives r/w permission to owner and group, and read permission to others
 + `chmod a-x file` - removes execute permission for all categories (owner/group/other)
 + `chmod --reference=filea fileb` - makes fileb’s mode the same as filea’s
 + `chmod u+s /bin/executable` - set `setuid` (`4000`) bit in `/bin/executable`
++ `chmod g+s /data/dir` - set `setgid` (`2000`) bit in `/data/dir`
++ `chmod +t /tmp` - set `sticky bit`
 + `find mydir -type f -exec chmod a-x {} ';'` - change permissions only to _files_ rather than both _files_ and _dirs_.
 + `find / -perm /4000` - find all binaries with `setuid` permissions
 + `chown user1:group1 -R dir` - change recursively owner and group of all files within `dir`
@@ -152,6 +146,16 @@ superuse
 + `getfacl file` - list `file` ACLs
 + `du --max-depth 1 -hx /` - View root directory usage considering only the `/` filesytem and not the other directories within it with dedicated filesystems.
 + `lsblk` who lists all _block devices_ depends on `/sys/dev/block`
+
+**Filesystems and System Tree Layout**
++ `man hier` - information about tipical linux directories `var`, `etc`, `usr`, etc.
++ `mount -o nosuid /dev/sda1 /home/alonso` - mount `/dev/sda1` filesystem without allowing using `setuid` executables in it.
++ `mount` - list mounted filesystems
++ `mount -t iso9660 -o loop image.iso /mnt/iso_image` - mount ISO file as a device
++ `man proc` - shows `/proc` filesystem information
++ `umount -l /home/alonso` - umount filesystem lazily, when opened files are closed
++ `fuser -vc /home/alonso` - list information of processes who have opened files in the filesystem mountpoint
+
 
 **Managing Processes**
 + `ipcs` -  default it shows information about all three resources: shared memory segments, message queues, and semaphore arrays.
