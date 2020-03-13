@@ -56,6 +56,8 @@
 + `authconfig --passalgo=sha512 --update` - change the algorith to cypher the user password stored in `/etc/shadow`
 + `chage -d 0 username` - invalidate user password and force update
 + `passwd -d usename` - invalidate user password and force update
++ `passwd -S miguelones` - get info about `miguelones` password
++ `echo password | passwd --stdin username` - pass the `username` `password` to `passwd` from `stdin` pipe
 + An `INACTIVE` account may not login
 + `chsh -s /bin/zsh username` - change `username` default shell
 + `usermod -e 2020-01-01 username` - disable `username` user account at the date supplied
@@ -71,6 +73,8 @@
 + `chsh -s /bin/nologin username` -  disables `username` user to login
 + `w` - shows you who is currently loged-in
 + `who` - show who is logged on
++ `loginctl list-sessions` - list current system sessions
++ `loginctl session-status 14` - get all information about session `14`
 
 **Managing files**
 + `file` - determine file type
@@ -132,6 +136,7 @@ superuse
 + `chmod --reference=filea fileb` - makes fileb’s mode the same as filea’s
 + `chmod u+s /bin/executable` - set `setuid` (`4000`) bit in `/bin/executable`
 + `find mydir -type f -exec chmod a-x {} ';'` - change permissions only to _files_ rather than both _files_ and _dirs_.
++ `find / -perm /4000` - find all binaries with `setuid` permissions
 + `chown user1:group1 -R dir` - change recursively owner and group of all files within `dir`
 + `umask 0222` - set the octal permission to *remove* from the new created files. It will do a NAND operation with default creation permissions
 + `umask 027` - denie all permission from _others_ and write permission for _group_ to all new created files.
