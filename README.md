@@ -14,6 +14,7 @@
 + `whoami` -  print effective userid
 + `locate` -  find files by name
 + `env` - print environment and shell variables in current sesion
++ `!d` - execute the last command that started with a `d`
 + `printenv SHELL` - print `SHELL` var value
 + `!88` - execute command `88` in shell history
 + `type` - Indicate how a command name is interpreted
@@ -26,6 +27,17 @@
 + files loaded in non-login shells - `~/.bashrc`
 + `aliases` and exported `variables` are inhereited by sub-shells
 
+**Time**
++ `timedatectl set-timezone Europe/Madrid` - set system TZ
++ `timedatectl status` - get system time info
++ `hwclock` - manage hardware time in the system
++ `chronyc sources` - shows the `ntp` servers used in `chrony`
++ `ntpq -pn` - same as `chronyc sources` but for `ntp`
++ `ntpdate pool.ntp.org` - Set the current date and time in that momment. Cannot be used when `ntpd` daemon is running
++ `ntpstat` - get current information about ntp
++ ` /etc/localtime -> /usr/share/zoneinfo/Europe/Madrid`
++ `/etc/ntp.conf` - `ntpd` daemon configuration file
+
 **Managing software**
 + `rpm -qf /etc/httpd` - finds out which paquet the file belongs to  
 + `rpm -ql bash` - list what files does the package has installed
@@ -35,7 +47,7 @@
 + `man 7 signal` - overview of signals
 + `kill -s SIGTERM 5776`
 + `killall -u USER` - kill all `USER` processes
-+ `kill -15 1234`
++ `kill -15 1234` - send signal number `15` to process with pid `1234`
 + `pkill python`
 + `pkill -u pablelas` + kill all `pablelas`' processes
 
@@ -45,6 +57,11 @@
 + `man -k keyword` - let's you find _commands_ based on `keyword`
 
 **Monitoring Network**
++ `/etc/services` - provides information about what ports are asigned to which services assigned by the IANA
++ `/etc/nsswitch.conf` - defines in which order does the system look for information
++ `ping -f goo.gl` - do a ping flood
++ `ss -tuna` is the same as `netsta -tulpn
++ `namp 192.168.0.23` + do a port scan `0-65536` on the IP address `192.168.0.23`
 
 **Managing users**
 + `/etc/passwd` - is a list of users recognized by the system.
@@ -75,6 +92,9 @@
 + `who` - show who is logged on
 + `loginctl list-sessions` - list current system sessions
 + `loginctl session-status 14` - get all information about session `14`
++ `loginctl list-users` - list currently logged in users
++ `loginctl user-status user` - get information about what is `user` user doing
++ `loginctl terminate-user user` - terminate all sesions of `user` user
 
 **Managing files**
 + `file` - determine file type
@@ -159,6 +179,8 @@ superuse
 
 **Managing Processes**
 + `ipcs` -  default it shows information about all three resources: shared memory segments, message queues, and semaphore arrays.
++ `renice 0 -u user` - set niceness of `0` to all processes owned by `user` user
++ `renice -20 9207` - set niceness of `-20` o the process with pid `9207` 
 
 **Monitoring Processes**
 + `/proc/cmdline` - show with which options was the kernel launched
@@ -171,6 +193,23 @@ superuse
 + `ps -x -o pid=` - print all processes PID owned by you in a _quiet_ form
 + `ps -ef --sort +pid` - list all system processes sorted by ascend PID
 + `top` - provides  a  dynamic real-time view of a running system
+ + `m` - change global memory output layout
+ + `l` - change global CPU output layout
+ + `I` - _Iris_ mode for CPU
+ + `O` - sorting by a field
+ + `z` - put colors on output
+ + `c` - show absolute path of processes
+ + `P` - sort by CPU
+ + `M` - sort by memory
+ + `e` - change memory unit for individual processes memory
+ + `E` - change memory unit for global memory 
+ + `R` - sort by PID
+ + `V` - forest view
+ + `J` - justify text
+ + `U` - filter by user
+ + `W` - save current display options
+ + `f` - select other fields to display
+ + `r` - renice a process
 + `ps` and `top` read from `/proc`
 + `/usr/bin/nice -n5 date` - launch `date` command with 5 points increased _niceness_
 + `sudo /usr/bin/renice -n -10 24247` - renice process `24247` to -10 priority
@@ -212,11 +251,15 @@ that have not been modified in 7 days.
 + `man systemd.service` - Service unit configuration
 + `systemctl start /path/to/foo.service`
 + `systemctl` - how the status of everything that systemd controls
++ `systemctl -t help` - list available unit types
 + `systemctl cat docker` - cat the `docker.service` unit file
 + `systemctl list-units -t service --all`
 + `systemctl list-units -t service` - list active units
++ `systemctl list-units --type=service --state=running`- list all currently `running` services
 + `systemctl list-unit-files --type=service` - list installed units
++ `systemctl list-unit-files --state=enabled` - list enabled units
 + `systemctl list-dependencies rescue.target` - list all units involved in `rescue.target`
++ `systemctl edit docker` - modifies the `docker.service` unit in `/etc/systemd/system/docker.service` leaving unmodified `/usr/lib/systemd/system/docker.service`
 + `systemctl enable sshd.service --now` - enable and start `sshd`
 + `systemctl set-default multi-user.target` - change the default run level in the system
 + `systemctl is-active docker.service`
