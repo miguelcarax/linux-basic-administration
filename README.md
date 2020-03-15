@@ -193,23 +193,23 @@ superuse
 + `ps -x -o pid=` - print all processes PID owned by you in a _quiet_ form
 + `ps -ef --sort +pid` - list all system processes sorted by ascend PID
 + `top` - provides  a  dynamic real-time view of a running system
- + `m` - change global memory output layout
- + `l` - change global CPU output layout
- + `I` - _Iris_ mode for CPU
- + `O` - sorting by a field
- + `z` - put colors on output
- + `c` - show absolute path of processes
- + `P` - sort by CPU
- + `M` - sort by memory
- + `e` - change memory unit for individual processes memory
- + `E` - change memory unit for global memory 
- + `R` - sort by PID
- + `V` - forest view
- + `J` - justify text
- + `U` - filter by user
- + `W` - save current display options
- + `f` - select other fields to display
- + `r` - renice a process
+  + `m` - change global memory output layout
+  + `l` - change global CPU output layout
+  + `I` - _Iris_ mode for CPU
+  + `O` - sorting by a field
+  + `z` - put colors on output
+  + `c` - show absolute path of processes
+  + `P` - sort by CPU
+  + `M` - sort by memory
+  + `e` - change memory unit for individual processes memory
+  + `E` - change memory unit for global memory 
+  + `R` - sort by PID
+  + `V` - forest view
+  + `J` - justify text
+  + `U` - filter by user
+  + `W` - save current display options
+  + `f` - select other fields to display
+  + `r` - renice a process
 + `ps` and `top` read from `/proc`
 + `/usr/bin/nice -n5 date` - launch `date` command with 5 points increased _niceness_
 + `sudo /usr/bin/renice -n -10 24247` - renice process `24247` to -10 priority
