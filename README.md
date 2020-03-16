@@ -39,9 +39,28 @@
 + `/etc/ntp.conf` - `ntpd` daemon configuration file
 
 **Managing software**
++ `ldd /bin/bash` - list all libraries needed by `bash` binary
 + `rpm -qf /etc/httpd` - finds out which paquet the file belongs to  
-+ `rpm -ql bash` - list what files does the package has installed
++ `rpm -ql bash` - list which files does the package has installed
++ `rpm -qpl ncat.rpm` - list which files could the package install
 + `rpm -U iperf` - upgrade `iperf` package
++ `rpm -ivh gedit.rpm` - install `gedit.rpm` package. Do not manage dependencies
++ ` rpm -qp --scripts gedit.rpm` - show _scripts_ included in the `gedit.rpm`
++ `yumdownloader gedit` - download locally `gedit.rpm`
++ `yum history` - shows all the executions of `yum` command
++ `yum repolist -v` - show available repositories in `/etc/yum.repos.d/*`, extended format
++ `yum list installed` - list installed packages, same as `rpm -qa`
++ `yum list installed \*bash\*` - list installed packages which match the `\*bash\*` expression
++ `yum install nmap` - install `nmap` package
++ `yum list available \*ftp\*` - list all available packages that match the `\*ftp\*` expression
++ `yum remove nmap` - remove `nmap` package
++ `yum groups summary` - view the number of installed groups, available groups, available environment group
++ `yum update --security` - update only packages with security updates
++ `yum update /usr/bin/bash` - update the package that provides `/usr/bin/bash` binary
++ `yum info bash` - get more detailed information about the `bash` package
++ `yum install --downloadonly --downloaddir=/tmp bash` - download `bash` package in `/tmp` dir
++ `yum reinstall bash` - reinstall `bash` package
++ `yum deplist ntp` - list all dependencies of `ntp` package
 
 **Signals**
 + `man 7 signal` - overview of signals
@@ -218,10 +237,16 @@ superuse
 + `strace` - shows system calls trace from a process
 + `crontab -e` - edit user crontab file
 + `crontab -l` - list user crontabs
++ `man 5 crontab` - get info about `crontab` format
 + `minute hour dom month weekday command` - crontab line format
++ You can put `.sh` files in `/etc/cron.daily`, `/etc/cron.hourly`, `/etc/cron.monthly`, etc.
 + `20 1 * * * find /tmp -mtime +7 -type f -exec rm -f { } ';'` - crontab, it removes all files in the `/tmp` directory
 that have not been modified in 7 days.
 + `systemd` defines `timers` that like `cron` execute a system process on a predefined schedule. More info in `man systemd.timer`
++ A `systemd.timer` must have a `systemd.service` which determines what to run
++ `systemd-run --on-active=30 /bin/touch /tmp/foo` - create a `systemd.timer` (and associated `systemd.service`)
++ `systemd-run --on-calendar="*-*-* 22:41:00" logger hello` - create a `X.timer` (and associated `X.service`) which runs daily
++ `man 7 systemd.time` - information about `systemd.timer` scheduler format
 
 **System Startup and Shutdown**
 + `/etc/sysconfig/*` - are used when starting, stopping, configuring or querying system services (Red Hat)
@@ -253,6 +278,8 @@ that have not been modified in 7 days.
 + `systemctl` - how the status of everything that systemd controls
 + `systemctl -t help` - list available unit types
 + `systemctl cat docker` - cat the `docker.service` unit file
++ `systemctl list-timers` - get information about `systemd.timers` in the system
++ `systemctl list-units dock*` - list all units which match the `dock*` expression
 + `systemctl list-units -t service --all`
 + `systemctl list-units -t service` - list active units
 + `systemctl list-units --type=service --state=running`- list all currently `running` services
@@ -260,6 +287,7 @@ that have not been modified in 7 days.
 + `systemctl list-unit-files --state=enabled` - list enabled units
 + `systemctl list-dependencies rescue.target` - list all units involved in `rescue.target`
 + `systemctl edit docker` - modifies the `docker.service` unit in `/etc/systemd/system/docker.service` leaving unmodified `/usr/lib/systemd/system/docker.service`
++ `systemctl edit --full docker` - copy the `docker.service` totally and paste it in `/etc/systemd/system/`
 + `systemctl enable sshd.service --now` - enable and start `sshd`
 + `systemctl set-default multi-user.target` - change the default run level in the system
 + `systemctl is-active docker.service`
@@ -287,10 +315,11 @@ that have not been modified in 7 days.
 + `lastlog` - reports the most recent login of all users or of a given user out of `/var/log/lastlog`
 + `systemd journal` has volatile logs by default, they do not survive between restarts
 + `journalctl --since=yesterday --until=now --unit=docker` - show all logs of `docker` from yesterday up to now
++ `journalctl --no-pager -x` - show all logs with `no-pager` and e`x`tra explaniation
 + `journalctl -n 100 /usr/sbin/sshd` - list the last 100 journal entries of the `sshd` daemon
 + `journalctl --grep=ERROR --unit=httpd` - show journal entries with ERROR pattern of the `httpd` daemon
 + `journalctl -b 0 -u ssh` - list `ssh` entries from the boot `0` (more recent one)
-+ `journalctl --dmesg` - show kernel journal entries
++ `journalctl --dmesg` - show kernel journal entries (or `-k` like `dmesg -k`)
 + `journalctl --unit sshd --output json` -  output the journal entries in JSON format
 + `journalctl --unit docker --until "1 hour ago" --output json-pretty` - show the logs of `docker` daemon from the last hour in a pretty-json format
 + `journalctl --unit docker --priority 3` -  show PRIORITY (like syslog) log entries only
