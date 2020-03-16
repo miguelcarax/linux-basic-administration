@@ -27,6 +27,8 @@
 + files loaded in non-login shells - `~/.bashrc`
 + `aliases` and exported `variables` are inhereited by sub-shells
 
+**Logs**
+
 **Time**
 + `timedatectl set-timezone Europe/Madrid` - set system TZ
 + `timedatectl status` - get system time info
@@ -112,7 +114,7 @@
 + `loginctl list-sessions` - list current system sessions
 + `loginctl session-status 14` - get all information about session `14`
 + `loginctl list-users` - list currently logged in users
-+ `loginctl user-status user` - get information about what is `user` user doing
++ `loginctl user-status user` - get information about what `user` user doing
 + `loginctl terminate-user user` - terminate all sesions of `user` user
 
 **Managing files**
@@ -196,13 +198,11 @@ superuse
 + `fuser -vc /home/alonso` - list information of processes who have opened files in the filesystem mountpoint
 
 
-**Managing Processes**
+**Processes**
++ `/proc/cmdline` - show with which options was the kernel launched
 + `ipcs` -  default it shows information about all three resources: shared memory segments, message queues, and semaphore arrays.
 + `renice 0 -u user` - set niceness of `0` to all processes owned by `user` user
 + `renice -20 9207` - set niceness of `-20` o the process with pid `9207` 
-
-**Monitoring Processes**
-+ `/proc/cmdline` - show with which options was the kernel launched
 + `ps xawf -eo pid,user,cgroup,args` - Monitor which process belong to which cgroup
 + `ps -fx` - processes owned by you
 + `ps -fU user -C command` - processed runned by `user` with `command` in execution command
@@ -240,13 +240,14 @@ superuse
 + `man 5 crontab` - get info about `crontab` format
 + `minute hour dom month weekday command` - crontab line format
 + You can put `.sh` files in `/etc/cron.daily`, `/etc/cron.hourly`, `/etc/cron.monthly`, etc.
-+ `20 1 * * * find /tmp -mtime +7 -type f -exec rm -f { } ';'` - crontab, it removes all files in the `/tmp` directory
-that have not been modified in 7 days.
++ `20 1 * * * find /tmp -mtime +7 -type f -exec rm -f { } ';'` - crontab, it removes all files in the `/tmp` directory that have not been modified in 7 days.
 + `systemd` defines `timers` that like `cron` execute a system process on a predefined schedule. More info in `man systemd.timer`
 + A `systemd.timer` must have a `systemd.service` which determines what to run
 + `systemd-run --on-active=30 /bin/touch /tmp/foo` - create a `systemd.timer` (and associated `systemd.service`)
 + `systemd-run --on-calendar="*-*-* 22:41:00" logger hello` - create a `X.timer` (and associated `X.service`) which runs daily
++ `systemd-run --unit="test" --on-active="60" touch /tmp/file` - run the `test.service` from `60` seconds from now
 + `man 7 systemd.time` - information about `systemd.timer` scheduler format
++ `echo date | at now +5min` - execute `date` command in 5 minutes
 
 **System Startup and Shutdown**
 + `/etc/sysconfig/*` - are used when starting, stopping, configuring or querying system services (Red Hat)
