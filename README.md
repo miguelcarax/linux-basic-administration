@@ -28,6 +28,13 @@
 + `aliases` and exported `variables` are inhereited by sub-shells
 
 **Logs**
++ `/var/log/messages` - mostly all `syslog` messages are logged here
++ `/var/log/secure` - security and authentication information are logged here
++ `/var/log/boot.log` - startup and booting information are logged here
++ `man 5 rsyslog.conf` - This file specifies rules for logging
++ `logger` - enter messages into the system log
++ `logrotate` - rotates, compresses, and mails system logs
++ `/etc/logrotate.conf` - configuration file of logrotate daemon
 
 **Time**
 + `timedatectl set-timezone Europe/Madrid` - set system TZ
