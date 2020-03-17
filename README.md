@@ -27,6 +27,13 @@
 + files loaded in non-login shells - `~/.bashrc`
 + `aliases` and exported `variables` are inhereited by sub-shells
 
+**Security**
++ `man limits.conf` - information about `ulimit` 
++ `ulimit` - TODO
++ `/etc/pam.d/login` - PAM configuration file for `login` command
++ `man pam_X` - get information about `pam_X` PAM module
+
+
 **Logs**
 + `/var/log/messages` - mostly all `syslog` messages are logged here
 + `/var/log/secure` - security and authentication information are logged here
