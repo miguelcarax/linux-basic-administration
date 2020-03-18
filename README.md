@@ -32,6 +32,7 @@
 + `ulimit` - TODO
 + `/etc/pam.d/login` - PAM configuration file for `login` command
 + `man pam_X` - get information about `pam_X` PAM module
++ `man pam.d` - get information about generic PAM modules
 
 
 **Logs**
