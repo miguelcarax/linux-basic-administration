@@ -29,7 +29,8 @@
 
 **Security**
 + `man limits.conf` - information about `ulimit` 
-+ `ulimit` - TODO
++ `ulimit` - provides control over the resources available to the shell and to processes started by it
++ `ulimits -a` - list current user shell limits
 + `/etc/pam.d/login` - PAM configuration file for `login` command
 + `man pam_X` - get information about `pam_X` PAM module
 + `man pam.d` - get information about generic PAM modules
@@ -226,11 +227,24 @@ superuse
 **Filesystems and System Tree Layout**
 + `man hier` - information about tipical linux directories `var`, `etc`, `usr`, etc.
 + `mount -o nosuid /dev/sda1 /home/alonso` - mount `/dev/sda1` filesystem without allowing using `setuid` executables in it.
++ `mount -o noexec,ro /home/user` - mount use home without allowing executions and permitting read onlyg 
 + `mount` - list mounted filesystems
++ `mount -a` - mount all entries defined in  `/etc/fstab`
 + `mount -t iso9660 -o loop image.iso /mnt/iso_image` - mount ISO file as a device
 + `man proc` - shows `/proc` filesystem information
 + `umount -l /home/alonso` - umount filesystem lazily, when opened files are closed
 + `fuser -vc /home/alonso` - list information of processes who have opened files in the filesystem mountpoint
++ `partprobe -s` - informs the operating system kernel of partition table changes
++ `fdisk -l /dev/sda` - display device `/dev/sda` partitions
++ `fdisk /dev/sda` - interactive manage `/dev/sda` partition table
++ `mkfs -t ext4 /dev/xvdb1` - format as `ext4` filesystem the first partition of `/dev/xvdb` device
++ `lsblk -fatp` - list all block-devices (partitions too) along with devices path, filesytem type and more
++ `lsblk -fatp /dev/xvbd` - get all information about `/dev/xvbd` device along with all his partitions
++ `df -hTP` - get information about all filesystem in human form
++ `df -hTP -t ext4 -t xfs` - get information about filesystem with either `xfs` format or `ext4`
++ `df -hTP -x tmpfs` - get informationa about all filesystems excluding `tmpfs` filesystems like `/proc` or `/run`
+
+
 
 **Networking**
 + `hostname -I` - return all the IPs of all the system interfaces
