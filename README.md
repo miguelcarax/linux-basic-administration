@@ -248,6 +248,7 @@ superuse
 + `ps -p 1223 -o pid,ppid,fgroup,ni,lstart,etime,cgroup` - custom process output
 + `ps -x -o pid=` - print all processes PID owned by you in a _quiet_ form
 + `ps -ef --sort +pid` - list all system processes sorted by ascend PID
++ `ps -f -U $(whoami) --forest --sort=+pid` - get all your user processes sorted by `PID` in a `--forest` form
 + `top` - provides  a  dynamic real-time view of a running system
   + `m` - change global memory output layout
   + `l` - change global CPU output layout
@@ -349,6 +350,9 @@ superuse
 + `timedatectl` - control the system time and date
 + `loginctl` - control the systemd login manager
 
+**GIT**
++ `git diff --name-only --diff-filter=U` - show files with conflicts
++ `git checkout -- file` - delete changes made to `file` file
 
 
 
