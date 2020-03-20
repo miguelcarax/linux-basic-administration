@@ -35,6 +35,11 @@
 + `man pam_X` - get information about `pam_X` PAM module
 + `man pam.d` - get information about generic PAM modules
 
+**TLS**
++ `openssl s_client -connect myservice.es:443 -showcerts </dev/null` - print all certificates in the certificate chain presented by the SSL service
++ `openssl verify -CAfile rootca.pem intca.pem` - verify `intca.pem` against `rootca.pem`
++ `openssl verify -CAfile <(cat rootca.pem intca.pem ) server-cert.pem` - verify `server-cert.pem` against cert chain `rootca.pem` + `intca.pem`
++ `openssl s_client -connect myservice.es:443 -CAfile <(cat rootca.pem intca.pem)` - veriry `myservice.es` cert against cert chain `rootca.pem` + `intca.pem` 
 
 **Logs**
 + `/var/log/messages` - mostly all `syslog` messages are logged here
