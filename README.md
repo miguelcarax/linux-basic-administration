@@ -174,10 +174,12 @@
 + `/etc/skel/*` - all the content of this directory will be copied to new created users' home
 + `useradd -D -s /bin/bash` - set `bash` as default shell for all new created users, modify `/etc/default/useradd` file
 + `useradd -c "David Hilbert" -d /home/math/hilbert -g hilbert -G faculty -m -s /bin/tcsh hilbert`
++ `groupadd users` - create group `users`
 + `gpasswd --delete miguelones sudo` - remove `miguelones` user from `sudo` group
-+ `find filesystem -xdev -nouser` - check for orphaned files after a user has been removed
++ `groupmems --group sudo --delete miguelones` - delete `miguelones` user from `sudo` group
 + `usermod -L username` - lock `username` account, this disables login. 
 + `usermod -aG docker miguelones` - add `miguelones` user to `docker` group
++ `userdel -r miguelones` - remove `miguelones` user along with his home directory and mail spool
 + `chsh -s /bin/nologin username` -  disables `username` user to login
 + `w` - shows you who is currently loged-in
 + `who` - show who is logged on
@@ -214,6 +216,7 @@
 + `find . -perm /222` - will match `020`, `220`, `200`, `222`, etc. Any file writable by anybody
 + `find / -perm /4000` - will match all files with `suid` bit, like `/usr/bin/passwd`
 + `find . -perm -444 -perm /222 ! -perm /111`
++ `find / -xdev -nouser` - check for orphaned files after a user has been removed
 + `sed [address] operation [options]` - `sed` command syntax
 + `sed '' file` - same as `cat file`
 + `sed -n '1,5p' file` - print from line `1` to line `5`
