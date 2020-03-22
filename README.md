@@ -89,14 +89,21 @@
 + `rpm -ql bash` - list which files does the package has installed
 + `rpm -qpl ncat.rpm` - list which files could the package install
 + `rpm -U iperf` - upgrade `iperf` package
++ `rpm -Vva` or `rpm -vV bash` - verify whether the files from a particular package are consistent with the system's RPM database
 + `rpm -ivh gedit.rpm` - install `gedit.rpm` package. Do not manage dependencies
-+ ` rpm -qp --scripts gedit.rpm` - show _scripts_ included in the `gedit.rpm`
++ `rpm -qp --scripts gedit.rpm` - show _scripts_ included in the `gedit.rpm`
++ `rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7` - import new repository GPG key
++ `rpm -q gpg-pubkey` - list installed repositories gpg-keys
++ `rpm -qi gpg-pubkey-f4a80eb5-53a7ff4b` - get more dailed informaton about `X` gpg repository key
++ `rpm2cpio sudo.rpm | cpio -ivd` - extract the content of `sudo.rpm` into current directory 
 + `yumdownloader gedit` - download locally `gedit.rpm`
 + `yum history` - shows all the executions of `yum` command
 + `yum repolist -v` - show available repositories in `/etc/yum.repos.d/*`, extended format
 + `yum list installed` - list installed packages, same as `rpm -qa`
 + `yum list installed \*bash\*` - list installed packages which match the `\*bash\*` expression
 + `yum install nmap` - install `nmap` package
++ `yum install epel-release -y` - enable EPEL repository
++ `yum localinstall nmap.rpm` - install local `nmap.rpm` package
 + `yum list available \*ftp\*` - list all available packages that match the `\*ftp\*` expression
 + `yum remove nmap` - remove `nmap` package
 + `yum groups summary` - view the number of installed groups, available groups, available environment group
@@ -106,6 +113,8 @@
 + `yum install --downloadonly --downloaddir=/tmp bash` - download `bash` package in `/tmp` dir
 + `yum reinstall bash` - reinstall `bash` package
 + `yum deplist ntp` - list all dependencies of `ntp` package
++ `yum clean all` - remove al cached information
+
 
 **Signals**
 + `man 7 signal` - overview of signals
@@ -192,6 +201,7 @@
 **Managing files**
 + `file` - determine file type
 + `dd if=/dev/zero of=/tmp/file bs=1M count=100` - create a file with _zeros_ with size `1MB` * `100`
++ `cpi -ivd < archive.cpio` - extract the content of the `archive.cpio` archive into current directory
 + `tar -cf file.bzip2 --bzip file` - create a `bzip2` tarball
 + `tar -czf file.tar.gz file` - create a `gzip` tarball
 + `tar -tvf file.tar.gz` - list the content of the tarball `file.tar.gz`
@@ -309,7 +319,19 @@ superuse
 **Networking**
 + `hostname -I` - return all the IPs of all the system interfaces
 
-**Processes**
+**Monitoring System**
++ `var/log/messages` - contains global system messages, including the messages that are logged during system startup
++ `/var/log/secure` - authorization and authentication information
++ `/var/log/dmesg` - kernel ring buffer information (also included in `/var/log/messages`)
++ `/var/log/kern.log` - contains information logged by the kernel.
++ `/var/log/boot.log` - startup information (booting)
++ `uptime -p` - show how many time has been the system running (pretty format)
++ `free -h` - amount of free and used memory in the system
++ `vmstat -s` - reports information about processes, memory, paging, block IO, traps, disks and cpu activity
++ `vmstat -D` - disk statistics (summary)
++ `vmstat -d` - disk statistics
++ `cat /proc/meminfo` - get lenght memory information
++ `dmesg -Hw` - get kernel logs ( from `/dev/kmsg`)
 + `/proc/cmdline` - show with which options was the kernel launched
 + `ipcs` -  default it shows information about all three resources: shared memory segments, message queues, and semaphore arrays.
 + `renice 0 -u user` - set niceness of `0` to all processes owned by `user` user
@@ -379,7 +401,7 @@ superuse
 + `/boot/vmlinuz-4.14.72-68.55.amzn1.x86_64` - Linux kernel compressed (`cpio`) file
 + `/boot/initramfs-4.14.72-68.55.amzn1.x86_64.img` - `initramfs` file for kernel
 
-**Chapter 39 - System Init: systemd, System V and Upstart**
+**System Init: systemd, System V and Upstart**
 + `man bootup` - information about startup process
 + `/etc/vconsole.conf` -  default keyboard mapping and console font.
 + `/etc/sysctl.d/*.conf` - drop-in directory for kernel sysctl parameters.
