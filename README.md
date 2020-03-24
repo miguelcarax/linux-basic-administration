@@ -39,7 +39,11 @@
 + `openssl s_client -connect myservice.es:443 -showcerts </dev/null` - print all certificates in the certificate chain presented by the SSL service
 + `openssl verify -CAfile rootca.pem intca.pem` - verify `intca.pem` against `rootca.pem`
 + `openssl verify -CAfile <(cat rootca.pem intca.pem ) server-cert.pem` - verify `server-cert.pem` against cert chain `rootca.pem` + `intca.pem`
-+ `openssl s_client -connect myservice.es:443 -CAfile <(cat rootca.pem intca.pem)` - veriry `myservice.es` cert against cert chain `rootca.pem` + `intca.pem` 
++ `openssl s_client -connect myservice.es:443 -CAfile <(cat rootca.pem intca.pem)` - veriry `myservice.es` cert against cert chain `rootca.pem` + `intca.pem`
++ `keytool -keystore myapplication-keystore.jks -alias myapplication -genkey -keyalg RSA -keypass 123456 -storepass 123456` - generate a JKS keystore with key pairs and alias `myapplication`
++ `keytool -certreq -alias myapplication -keystore myapplication-keystore.jks -file myapplication.csr -ext san=dns:myapplication,dns:myapplication.mycorporation.com -storepass 123456 -keypass 123456` - generate a CSR out of an existing `myapplication` key pairs in a JKS
++ `keytool -importcert -alias CAroot -file CAroot.pem -keystore myapplication-keystore.jks` - import the custom CA `CAroot.pem` to the keystore to be able to import the signed certificate, signed by this CA
++ `keytool -importcert -alias myapplication -file myapplication.pem -keystore myapplication-keystore.jks -trustcacerts` - import the signed certificated to the existing key pairs, will exchange the existing public key with the signed certificate
 
 **Logs**
 + `/var/log/messages` - mostly all `syslog` messages are logged here
