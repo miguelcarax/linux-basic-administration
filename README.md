@@ -27,6 +27,11 @@
 + files loaded in non-login shells - `~/.bashrc`
 + `aliases` and exported `variables` are inhereited by sub-shells
 
+**Hadoop**
+
++ `hdfs dfs -ls -C hdfs:///path` - print only the name of the directories or files
++ `hdfs dfs -ls -S hdfs:///path` - list output sorted by size
+
 **Security**
 + `man limits.conf` - information about `ulimit` 
 + `ulimit` - provides control over the resources available to the shell and to processes started by it
@@ -44,6 +49,7 @@
 + `keytool -certreq -alias myapplication -keystore myapplication-keystore.jks -file myapplication.csr -ext san=dns:myapplication,dns:myapplication.mycorporation.com -storepass 123456 -keypass 123456` - generate a CSR out of an existing `myapplication` key pairs in a JKS
 + `keytool -importcert -alias CAroot -file CAroot.pem -keystore myapplication-keystore.jks` - import the custom CA `CAroot.pem` to the keystore to be able to import the signed certificate, signed by this CA
 + `keytool -importcert -alias myapplication -file myapplication.pem -keystore myapplication-keystore.jks -trustcacerts` - import the signed certificated to the existing key pairs, will exchange the existing public key with the signed certificate
++ `keytool -genkey -v -keyalg RSA -keystore $(hostname).jks -keypass 123456 -storepass 123456 -storetype jks -alias gearundeckdata.pre.si.orange.es -validity 3650 -dname "CN=gearundeckdata.pre.si.orange.es,C=ES,ST=Madrid,L=Pozuelo de ALarcon,O=Orange Espagne S.A.U, OU=Orange Espagne S.A.U./JAZZZTEL"`
 
 **Logs**
 + `/var/log/messages` - mostly all `syslog` messages are logged here
@@ -251,6 +257,7 @@
 + `sed '$r file1' file2` - concatenate the content `file1` at the end of `file2`
 + `grep -w alex file` - will match lines with `alex` word but not `alexander`
 + `grep -C1 username file` - print the line(s) matched, the above one, and the below one
++ `awk -F'/' '{print $3}'` - change awk field delimiter to `/`
 + `file /bin/ping` - determine file type
 + `ln -s <src> <dest>` - remember the same syntax as `cp` command
 + _search_ or _scan_ bit allows the directory to be entered or passed through as a pathname is evaluated,
