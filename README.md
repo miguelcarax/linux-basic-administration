@@ -50,7 +50,7 @@
 + `keytool -importcert -alias CAroot -file CAroot.pem -keystore myapplication-keystore.jks` - import the custom CA `CAroot.pem` to the keystore to be able to import the signed certificate, signed by this CA
 + `keytool -importcert -alias myapplication -file myapplication.pem -keystore myapplication-keystore.jks -trustcacerts` - import the signed certificated to the existing key pairs, will exchange the existing public key with the signed certificate
 + `keytool -genkey -v -keyalg RSA -keystore myapplication-keystore.jks -keypass 123456 -storepass 123456 -storetype jks -alias myapplication -validity 3650 -dname "CN=myapplication.mycorporation.com,C=ES,ST=Madrid,L=Madrid,O=MyBusiness"`
-+ `keytool -importcert -alias myapplication -file myapplication.cert -keystore myapplication-keystore.jks -trustcacerts`
++ `openssl x509 -inform der -in myapplication.cer -out myapplication.pem`
 
 **Logs**
 + `/var/log/messages` - mostly all `syslog` messages are logged here
