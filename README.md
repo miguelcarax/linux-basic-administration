@@ -3,6 +3,9 @@
 **BASH**
 
 + `/etc/environment` is the first file loaded by `bash` shell
++ `/etc/shells` - system wide availables shells
++ `/etc/profile` - system wide file loaded with logins shells
++ `/etc/bashrc` -  system wide file loaded with logins and non-logins shells
 + `compgen -c` - list all system binaries in `$PATH`
 + `~+` - current working directory (`$PWD`)
 + `$_` - final argument in last executed command
@@ -96,6 +99,8 @@
 **Managing software**
 + `ldd /bin/bash` - list all libraries needed by `bash` binary
 + `ldconfig` - the directories that will be searched for shared libraries, read from `/etc/ld.so.conf`. `LD_LIBRARY_PATH` environment variable can be used too
++ `libc.so.6` - shared C library 
++ `vfat.ko.xz` - compresses linux kernel module 
 + `rpm -qf /etc/httpd` - finds out which paquet the file belongs to  
 + `rpm -ql bash` - list which files does the package has installed
 + `rpm -qpl ncat.rpm` - list which files could the package install
@@ -128,12 +133,7 @@
 
 
 **Signals**
-+ `man 7 signal` - overview of signals
-+ `kill -s SIGTERM 5776`
-+ `killall -u USER` - kill all `USER` processes
-+ `kill -15 1234` - send signal number `15` to process with pid `1234`
-+ `pkill python`
-+ `pkill -u pablelas` + kill all `pablelas`' processes
+
 
 **Man**
 + Man pages are stored in `/usr/share/man` and compressed in gzip format. `man` is able to decompress it on the fly
@@ -172,6 +172,16 @@
 + `ip route del default` - delete default gateway in routing table
 + `ip route add 132.236.220.64/26 via 132.236.212.6 dev eth1` - add entry to routing table
 + `ip route add default via 132.236.227.1 dev eth0` - add default gateway in routing table (`0.0.0.0`)
++ `ss -tuna` - list all connections, both TCp and UDP and do not resolve PORTS to SERVICES
++ `ss -tnl` - list all listening TCP connections
++ `ss -tanp` - list all TCP connections along with the process which is establishing the connection
++ `ss -s` - network connections summary
++ `ss -tun state LISTENING` - display all TCP and UDP listening ports
++ `ss -t state STABLISHED` - display all TCP established connections
++ `ss dst 90.169.220.26` - display all connections made from `90.169.220.26`
++ `ss src :ssh` - display all SSH connections at the moment or `ss sport :22`
++ `ss -o` - show how long was the connection established
++ `ss -r` - resolve from IP to DNS name in the connections
 
 **Managing users**
 + `/etc/passwd` - is a list of users recognized by the system.
@@ -208,6 +218,7 @@
 + `loginctl list-users` - list currently logged in users
 + `loginctl user-status user` - get information about what `user` user doing
 + `loginctl terminate-user user` - terminate all sesions of `user` user
++ `last` - show listing of last logged in users
 
 **Managing files**
 + `file` - determine file type
@@ -220,6 +231,10 @@
 + `tar -cf file.tar.xz --xz file` - create a `xz` tarball
 + `tar -xf file.tar -C /tmp/dir` - untar `file.tar` in `/tmp/dir`
 + `tar -cjf tarball-content.tar.bz tarball-content.tar` - further compress a `tar` file with `bzip2` compress
++ `tar -cf tarball.tar -C my_dir/my_other_dir .` -  will only add all the content of dir `my_dir/my_other_dir` to the tarball rather than `my_dir/my_other_dir/*  `
++ `bzip2 file` - compress `file`  wiht `bzip2` algorithm, will create `file.bz2` file , will delete original file
++ `bzip2 -k file` - compress `file` without deleting it
++ `xz -k file` - compress `file` with `xz` algorithm without deleting original file
 + `gzip` for compress and `gunzip` for decompress
 + `find / -iname A -maxdepth 1` - search with 1 level directory deep
 + `find / -iname B -mount` - don't descend directories on other filesystems
@@ -326,11 +341,6 @@ superuse
 + `lvresize --size 2GB vgexam/lvexam` - resize `LV` `lvexam`
 + `lvcreate --snapshot --size 100M --name lvexam-snap vgexam/lvexam`
 
-
-
-**Networking**
-+ `hostname -I` - return all the IPs of all the system interfaces
-
 **Monitoring System**
 + `var/log/messages` - contains global system messages, including the messages that are logged during system startup
 + `/var/log/secure` - authorization and authentication information
@@ -384,6 +394,7 @@ superuse
 + `crontab -e` - edit user crontab file
 + `crontab -l` - list user crontabs
 + `man 5 crontab` - get info about `crontab` format
++ You can check if a cron job has ran in `/var/log/cron`
 + `minute hour dom month weekday command` - crontab line format
 + You can put `.sh` files in `/etc/cron.daily`, `/etc/cron.hourly`, `/etc/cron.monthly`, etc.
 + `20 1 * * * find /tmp -mtime +7 -type f -exec rm -f { } ';'` - crontab, it removes all files in the `/tmp` directory that have not been modified in 7 days.
@@ -395,40 +406,51 @@ superuse
 + `man 7 systemd.time` - information about `systemd.timer` scheduler format
 + `echo date | at now +5min` - execute `date` command in 5 minutes
 
-**System Startup and Shutdown**
-+ `/etc/sysconfig/*` - are used when starting, stopping, configuring or querying system services (Red Hat)
-+ `/etc/default/*` - same as `sysconfig` but related to Debian
-+ `shutdown -h +5` -  halt system in 5 minutes
-+ `shutdown -r now` - restart system now
-+ Kernel options on problems - `init=/bin/bash`
-
 **GRUB**
-+ `grub2-mkconfig`
- + `/etc/default/grub`
- + `/etc/grub.d/40-custom`
-+ `grubby` - grubby - command line tool used to configure bootloader 
 + `grub2-install /dev/sda ` - Install grub on disk
++ `grub2-mkconfig`
++ `/etc/default/grub`
++ `/etc/grub.d/40-custom`
++ `grubby` - grubby - command line tool used to configure bootloader 
++ `grubby --bootloader-probe` - list installed bootloader
++ `grubby --default-kernel` - list default installed kernel
++ `grubby --update-kernel=/boot/vmlinuz-3.10.0-1062.12.1.el7.x86_64 --args="init=/bin/bash"` - update kernel arguments
++ Kernel options on problems - `init=/bin/bash`, `systemd.unit=emergy.target` for minimal services, `rd.break` for getting acces to the `initramfs` just before executing `chroot`
 + `dracut` - create initial ramdisk images for preloading modules
 + `/boot` - stores data used before the kernel begins executing user-mode programs
 + `/boot/vmlinuz-4.14.72-68.55.amzn1.x86_64` - Linux kernel compressed (`cpio`) file
 + `/boot/initramfs-4.14.72-68.55.amzn1.x86_64.img` - `initramfs` file for kernel
++ `lsinitrd` -  get information about current kernel `initramfs`, use with `less`
++ `Rescue Mode` in a SO installation CD will load a Kernel and an `initramfs` from the CD
 
-**System Init: systemd, System V and Upstart**
+**Startup, Kernel and Processes**
++ `lsmod` - list kernel modules
++ `modinfo cryptd` - get info about `cryptd` kernel module
++ `modprobe cryptd` - load `cryptd` kernel module
++ `modprobe -r cryptd` - remove `cryptd` kernel module
++ `/lib/modules/<kernel-version>` - path where kernel modules are located
++ `sysctl -a` - list all kernel runtime parameters
++ `sysctl -a --pattern forward` - list all kernel parameters that match `forward` pattern
++ `sysctl net.ipv4.ip_forward=1` - change kernel parameter `net.ipv4.ip_forward` to `1` (enabled), changes are NOT persistent
++ `/etc/sysctl.d/*.conf` - drop-in directory for kernel sysctl parameters.
++ `/etc/sysconfig/*` - are used when starting, stopping, configuring or querying system services (Red Hat)
++ `shutdown -h +5` -  halt system in 5 minutes
++ `shutdown -r now` - restart system now
 + `man bootup` - information about startup process
 + `/etc/vconsole.conf` -  default keyboard mapping and console font.
-+ `/etc/sysctl.d/*.conf` - drop-in directory for kernel sysctl parameters.
 + `/etc/systemd/system/*.target.wants/*.service` - where different systemd targets (like runlevels) units files are located
 + `systemd-cgls` - systemd cgroups info
 + `man systemd.special` - describe basic systemd units
 + `man systemd.service` - Service unit configuration
-+ `systemctl start /path/to/foo.service`
-+ `systemctl` - how the status of everything that systemd controls
++ `systemctl start /path/to/foo.service` - start `foo.service` by path
++ `systemctl` - show the status of everything that systemd controls
 + `systemctl -t help` - list available unit types
 + `systemctl cat docker` - cat the `docker.service` unit file
 + `systemctl list-timers` - get information about `systemd.timers` in the system
 + `systemctl list-units dock*` - list all units which match the `dock*` expression
-+ `systemctl list-units -t service --all`
-+ `systemctl list-units -t service` - list active units
++ `systemctl list-units -t service --all` - list all service units, despite of the state
++ `systemctl list-units -t service` - list active service units
++ `systemctl list-units --type=target` - list all available targets in systemd
 + `systemctl list-units --type=service --state=running`- list all currently `running` services
 + `systemctl list-unit-files --type=service` - list installed units
 + `systemctl list-unit-files --state=enabled` - list enabled units
@@ -438,10 +460,12 @@ superuse
 + `systemctl enable sshd.service --now` - enable and start `sshd`
 + `systemctl set-default multi-user.target` - change the default run level in the system
 + `systemctl is-active docker.service`
-+ `systemctl isolate rescue.target` - Change execution mode to `rescue.target`
++ `systemctl isolate rescue.target` - change execution mode to `rescue.target`
++ `systemctl rescue` - same as above command
 + `systemctl daemon-reload docker.service` - Reloads when a new service is created or any configuration is modified.
 + `systemctl reboot` - same as `systemctl start reboot.target --irreversible`
- + Unit files stored in `/etc/systemd/`system override those from `/lib/systemd/system`
++ `systemctl poweroff` - shutdown the system
++ Unit files stored in `/etc/systemd/`system override those from `/lib/systemd/system`
 + `/etc/systemd/system/docker.service.d/http-proxy.conf` - unit additional configuration file
 + `systemd-analyze blame` - get info about systemd startup time order by unit time
 + `/run/systemd` - systemd places its local communications sockets
@@ -457,6 +481,13 @@ superuse
 + `hostnamectl` - control the system hostname
 + `timedatectl` - control the system time and date
 + `loginctl` - control the systemd login manager
++ `man 7 signal` - overview of signals
++ `kill -s SIGTERM 5776` - send `SIGTERM` signal to the process with PID `5776`
++ `killall -u USER` - kill all `USER` processes
++ `kill -15 1234` - send signal number `15` to process with pid `1234`
++ `pkill python` - kill all processes that match `python` pattern, owned by any user
++ `pkill -u pablelas` - kill all `pablelas`' processes
++ `pkill -u root python` - kill all `root` processes that match `python` pattern
 
 **GIT**
 + `git diff --name-only --diff-filter=U` - show files with conflicts
