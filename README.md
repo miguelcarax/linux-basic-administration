@@ -132,9 +132,6 @@
 + `yum clean all` - remove al cached information
 
 
-**Signals**
-
-
 **Man**
 + Man pages are stored in `/usr/share/man` and compressed in gzip format. `man` is able to decompress it on the fly
 + `man man`
@@ -182,6 +179,21 @@
 + `ss src :ssh` - display all SSH connections at the moment or `ss sport :22`
 + `ss -o` - show how long was the connection established
 + `ss -r` - resolve from IP to DNS name in the connections
++ `firewalld` manages `iptables` that are used by `netfilter` kernel module
++ `firewalld` will transfor his configuration into `iptables` rules
++ `firewall-cmd --list-all` - get all information about current `firewalld` configuration
++ `firewall-cmd --add-service http` - add `http` service to `firewalld` configurations, NOT permanent
++ `firewall-cmd --add-service http --permanent` - add `http` service to `firewalld` configurations
++ `firewall-cmd --info-service http` - get information about `http` service
++ `firewall-cmd --reload` - reload changed configuration, like adding a service to `/etc/firewalld/services`
++ `firewall-cmd --runtime-to-permanent` - save current runtime configuration as permanent
++ `iptables -L` - show current iptables rules
++ `iptables -L -v` - show current (verbose) iptables rules
++ `iptables -P INPUT DROP` - deny all input traffic by default
++ `iptables -L INPUT -p tcp --dport 22 -j ACCEPT` - allow incoming SSH traffic
++ `iptables -A INPUT -p icmp -j DROP` - disable ping from outside
++ `iptables-save >> /etc/sysconfig/iptables-config` - save ip tables runtime configuration to persistent configuration files
++ `iptables` packet filtering logs are manage by kernel, use `dmesg` to visualize
 
 **Managing users**
 + `/etc/passwd` - is a list of users recognized by the system.
@@ -312,7 +324,12 @@ superuse
 + `lsblk` who lists all _block devices_ depends on `/sys/dev/block`
 
 **Filesystems and System Tree Layout**
++ `findmnt` - tree overview of current filesystems
 + `man hier` - information about tipical linux directories `var`, `etc`, `usr`, etc.
++ `man xfs`, `man ext4` - get information about mount options (and more) about `xfs` and `ext4` filesystems
++ `xfs_admin` - administrate `xfs` filesystems
++ `xfs_admin -L oreilly /dev/sdb3` - put `books` label in `/dev/sdb3` filesystem
++ `xfs_growfs /dev/vgdata/lvdata` - resize `xfs` filesytem (on top of LVM)
 + `mount -o nosuid /dev/sda1 /home/alonso` - mount `/dev/sda1` filesystem without allowing using `setuid` executables in it.
 + `mount -o noexec,ro /home/user` - mount use home without allowing executions and permitting read onlyg 
 + `mount` - list mounted filesystems
@@ -327,18 +344,21 @@ superuse
 + `mkfs -t ext4 /dev/xvdb1` - format as `ext4` filesystem the first partition of `/dev/xvdb` device
 + `lsblk -fatp` - list all block-devices (partitions too) along with devices path, filesytem type and more
 + `lsblk -fatp /dev/xvbd` - get all information about `/dev/xvbd` device along with all his partitions
++ `blkid /dev/sdb1` - print block device attributes
 + `df -hTP` - get information about all filesystem in human form
 + `df -hTP -t ext4 -t xfs` - get information about filesystem with either `xfs` format or `ext4`
 + `df -hTP -x tmpfs` - get informationa about all filesystems excluding `tmpfs` filesystems like `/proc` or `/run`
 + `pvcreate /dev/xvdb[1:2]` - create `PV` out of `/dev/xvdb1` and `/dev/xvdb2` partitions
 + `pvdisplay` - show information about system LVMs, `pvs` as less detailed
 + `vgcreate vgtest /dev/xvdb[1:2]` - create `VG` `vgtest` of of `PV` `/dev/xvbd1` and `/dev/xvdb2`, will implicit create the `PV` if needed
++ `vgextend vgtest /dev/sdb4` - add new `PV` `/dev/sdb4` to `vgtest` `VG`
 + `vgdisplay` - show information about system VGs, `vgs` as less detailed
 + `lvcreate --name lvexam --size 1G vgexam` - create `LV` `lvexam` with the size of `1GB` out of `VG` `vgexam `
 + `lvcreate --name lvexam --size 3.99G vgexam` - you can use `X.YY` notation with `--size` parameter
 + `lvdisplay` - show information about system LVs in table view
 + `lvremove vgexam/lvexam` - remove `LV` `lvexam` out of `VG` `vgexam`
 + `lvresize --size 2GB vgexam/lvexam` - resize `LV` `lvexam`
++ `lvresize -L +500M /dev/vgdata/lvdata` - same as above command but other syntax
 + `lvcreate --snapshot --size 100M --name lvexam-snap vgexam/lvexam`
 
 **Monitoring System**
@@ -363,6 +383,7 @@ superuse
 + `ps -fU user -C command` - processed runned by `user` with `command` in execution command
 + `ps -fp 2226,1154,1146` - procssed with pid `x`
 + `ps --forest -e` - show processes in a tree view form
++ `ps -fU apache -p 4770 --forest` - get all `httpd` processes along with his father process
 + `ps -p 1223 -o pid,ppid,fgroup,ni,lstart,etime,cgroup` - custom process output
 + `ps -x -o pid=` - print all processes PID owned by you in a _quiet_ form
 + `ps -ef --sort +pid` - list all system processes sorted by ascend PID
@@ -440,6 +461,7 @@ superuse
 + `/etc/vconsole.conf` -  default keyboard mapping and console font.
 + `/etc/systemd/system/*.target.wants/*.service` - where different systemd targets (like runlevels) units files are located
 + `systemd-cgls` - systemd cgroups info
++ `systemd-cgtop`
 + `man systemd.special` - describe basic systemd units
 + `man systemd.service` - Service unit configuration
 + `systemctl start /path/to/foo.service` - start `foo.service` by path
