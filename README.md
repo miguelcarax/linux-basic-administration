@@ -31,9 +31,13 @@
 + `aliases` and exported `variables` are inhereited by sub-shells
 
 **Hadoop**
-
 + `hdfs dfs -ls -C hdfs:///path` - print only the name of the directories or files
 + `hdfs dfs -ls -S hdfs:///path` - list output sorted by size
++ `hdfs dfs -count -h hdfs:///path` - get numer of files, directories and size of `/path` in human-redeable
+
+**Python**
++ `pip show sparkmagic`
++ `pip install numpy`
 
 **Security**
 + `man limits.conf` - information about `ulimit` 
@@ -146,7 +150,8 @@
 + `ping -f goo.gl` - do a ping flood
 + `ping -I eth1 goo.gl` - do a ping to `goo.gl` through the `eth1` interface
 + `traceroute goo.gl` - print the route packets trace to network host
- - + `ss -tuna` is the same as `netsta -tulpn
++ `ss -tuna` is the same as `netstat -tulpn
++ `netcat -l 4444` - listen on port `4444`
 + `namp 192.168.0.23` + do a port scan `0-65536` on the IP address `192.168.0.23`
 + `nmcli` and `nmtui` (throught `NetworkManager` service) or `vim` (manually) modify interfaces configuration files in `/etc/sysconfig/network-scripts/*` but `systemd-networkd` service is responsible to apply this configurations to network interfaces
 + `/usr/share/doc/initscripts-*/sysconfig.txt` - information about `/etc/sysconfig/network-scripts/ifcfg-X` configuration files
