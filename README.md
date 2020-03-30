@@ -29,6 +29,7 @@
 + files loaded in login shells - `/etc/profile` and `~/.bash_profile` (usually `~/.bashrc` too)
 + files loaded in non-login shells - `~/.bashrc`
 + `aliases` and exported `variables` are inhereited by sub-shells
++ `uuidgen` - generate random uuid like this `58847587-38ae-485b-be63-0d5cac6c8a6b`
 
 **Hadoop**
 + `hdfs dfs -ls -C hdfs:///path` - print only the name of the directories or files
@@ -326,7 +327,6 @@ superuse
 + `setfacl-n` option to prevent setfacl from regenerate the `mask` when modifying current ACLs
 + `getfacl file` - list `file` ACLs
 + `du --max-depth 1 -hx /` - View root directory usage considering only the `/` filesytem and not the other directories within it with dedicated filesystems.
-+ `lsblk` who lists all _block devices_ depends on `/sys/dev/block`
 
 **Filesystems and System Tree Layout**
 + `findmnt` - tree overview of current filesystems
@@ -335,11 +335,12 @@ superuse
 + `xfs_admin` - administrate `xfs` filesystems
 + `xfs_admin -L oreilly /dev/sdb3` - put `books` label in `/dev/sdb3` filesystem
 + `xfs_growfs /dev/vgdata/lvdata` - resize `xfs` filesytem (on top of LVM)
++ `mount` - list mounted filesystems
 + `mount -o nosuid /dev/sda1 /home/alonso` - mount `/dev/sda1` filesystem without allowing using `setuid` executables in it.
 + `mount -o noexec,ro /home/user` - mount use home without allowing executions and permitting read onlyg 
-+ `mount` - list mounted filesystems
 + `mount -a` - mount all entries defined in  `/etc/fstab`
 + `mount -t iso9660 -o loop image.iso /mnt/iso_image` - mount ISO file as a device
++ `mount -U c1899275-daad-4934-8300-d4488747d5d2 /tmp` - mount by `UUID`
 + `man proc` - shows `/proc` filesystem information
 + `umount -l /home/alonso` - umount filesystem lazily, when opened files are closed
 + `fuser -vc /home/alonso` - list information of processes who have opened files in the filesystem mountpoint
@@ -347,8 +348,11 @@ superuse
 + `fdisk -l /dev/sda` - display device `/dev/sda` partitions
 + `fdisk /dev/sda` - interactive manage `/dev/sda` partition table
 + `mkfs -t ext4 /dev/xvdb1` - format as `ext4` filesystem the first partition of `/dev/xvdb` device
++ `wipefs /dev/sdb4` - shows `magic string` in partition `/dev/sdb4`
++ `findfs UUID=8ac075e3-1124-4bb6-bef7-a6811bf8b870` - findfs - find a filesystem by label or UUID
 + `lsblk -fatp` - list all block-devices (partitions too) along with devices path, filesytem type and more
 + `lsblk -fatp /dev/xvbd` - get all information about `/dev/xvbd` device along with all his partitions
++ `lsblk` who lists all _block devices_ depends on `/sys/dev/block`
 + `blkid /dev/sdb1` - print block device attributes
 + `df -hTP` - get information about all filesystem in human form
 + `df -hTP -t ext4 -t xfs` - get information about filesystem with either `xfs` format or `ext4`
@@ -362,9 +366,18 @@ superuse
 + `lvcreate --name lvexam --size 3.99G vgexam` - you can use `X.YY` notation with `--size` parameter
 + `lvdisplay` - show information about system LVs in table view
 + `lvremove vgexam/lvexam` - remove `LV` `lvexam` out of `VG` `vgexam`
++ `lvrename vgdata/lv-data vgdata/lvdata` - rename `lv-data` to `lvdata`
 + `lvresize --size 2GB vgexam/lvexam` - resize `LV` `lvexam`
 + `lvresize -L +500M /dev/vgdata/lvdata` - same as above command but other syntax
 + `lvcreate --snapshot --size 100M --name lvexam-snap vgexam/lvexam`
++ `mkswap /dev/sdb4` - format `/dev/sdb4` as `swap` filesystem
++ `swapon /dev/sdb4` - turn on swap
++ `swap` partitions should be added to `fstab` as `/dev/sdb4 swap default 0 0 `, the `swap` without a `/`
++ `cryptsetup luksFormat /dev/sdb4` - create a encrypted partition
++ `cryptsetup luksOpen /dev/sdb4 secret`
++ `mkfs -t xfs /dev/mapper/secret` - you CANNOT format a encrypted partition if is not opened before
++ `cryptsetup close secret` - close the encrypted partition
++ `/etc/crypttab` -  describes encrypted block devices that are set up during system boot. If we add an entry in this file with our encrypted partition the system will ask us at boot time for the password of the encrypted partition
 
 **Monitoring System**
 + `var/log/messages` - contains global system messages, including the messages that are logged during system startup
@@ -377,6 +390,7 @@ superuse
 + `vmstat -s` - reports information about processes, memory, paging, block IO, traps, disks and cpu activity
 + `vmstat -D` - disk statistics (summary)
 + `vmstat -d` - disk statistics
++ `vmstat 2 10` - every 2 seconds, 10 times
 + `cat /proc/meminfo` - get lenght memory information
 + `dmesg -Hw` - get kernel logs ( from `/dev/kmsg`)
 + `/proc/cmdline` - show with which options was the kernel launched
