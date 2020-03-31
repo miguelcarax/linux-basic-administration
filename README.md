@@ -249,7 +249,8 @@
 + `tar -cf file.tar.xz --xz file` - create a `xz` tarball
 + `tar -xf file.tar -C /tmp/dir` - untar `file.tar` in `/tmp/dir`
 + `tar -cjf tarball-content.tar.bz tarball-content.tar` - further compress a `tar` file with `bzip2` compress
-+ `tar -cf tarball.tar -C my_dir/my_other_dir .` -  will only add all the content of dir `my_dir/my_other_dir` to the tarball rather than `my_dir/my_other_dir/*  `
++ `tar -cf tarball.tar -C my_dir/my_other_dir .` -  will only add all the content of dir `my_dir/my_other_dir` to the tarball rather than `my_dir/my_other_dir/*`
++ `tar -rf tarball.tar new-file` - add `new-file` to existing archive, the tarball cannot be compressed to add new files
 + `bzip2 file` - compress `file`  wiht `bzip2` algorithm, will create `file.bz2` file , will delete original file
 + `bzip2 -k file` - compress `file` without deleting it
 + `xz -k file` - compress `file` with `xz` algorithm without deleting original file
