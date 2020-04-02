@@ -35,6 +35,12 @@
 + `hdfs dfs -ls -C hdfs:///path` - print only the name of the directories or files
 + `hdfs dfs -ls -S hdfs:///path` - list output sorted by size
 + `hdfs dfs -count -h hdfs:///path` - get numer of files, directories and size of `/path` in human-redeable
++ `HADOOP_ROOT_LOGGER=DEBUG,console hadoop distcp...` - get `DEBUG` info when runing `hdfs` command 
++ `yarn application -list`
+
+**SQL**
++ `DESCRIBE FORMATTED table_name PARTITION (dt='20131023')` - show location of an specific partition
++ `SHOW CREATE TABLE table_name` - get the DDL of the table
 
 **Python**
 + `pip show sparkmagic`
@@ -58,7 +64,10 @@
 + `keytool -importcert -alias CAroot -file CAroot.pem -keystore myapplication-keystore.jks` - import the custom CA `CAroot.pem` to the keystore to be able to import the signed certificate, signed by this CA
 + `keytool -importcert -alias myapplication -file myapplication.pem -keystore myapplication-keystore.jks -trustcacerts` - import the signed certificated to the existing key pairs, will exchange the existing public key with the signed certificate
 + `keytool -genkey -v -keyalg RSA -keystore myapplication-keystore.jks -keypass 123456 -storepass 123456 -storetype jks -alias myapplication -validity 3650 -dname "CN=myapplication.mycorporation.com,C=ES,ST=Madrid,L=Madrid,O=MyBusiness"`
-+ `openssl x509 -inform der -in myapplication.cer -out myapplication.pem`
++ `openssl x509 -inform der -in myapplication.cer -out myapplication.pem` - convert `x509` certificate from `DER` format to `PEM`
++ `openssl pkcs12 -in certificado.p12 -out certificado.pem -clcerts -nokeys` - extract the `x509` public certificate out of a `PKCS#12` store
++ `openssl pkcs12 -in certificado.p12 -out certificado_key.pem -nocerts -nodes` - extract the private key out of a `PKCS#12` store
+
 
 **Logs**
 + `/var/log/messages` - mostly all `syslog` messages are logged here
