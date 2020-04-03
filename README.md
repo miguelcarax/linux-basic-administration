@@ -31,6 +31,13 @@
 + `aliases` and exported `variables` are inhereited by sub-shells
 + `uuidgen` - generate random uuid like this `58847587-38ae-485b-be63-0d5cac6c8a6b`
 
+**GIT**
++ `git diff --name-only --diff-filter=U` - show files with conflicts
++ `git checkout -- file` - delete changes made to `file` file
++ `git log --oneline --decorate --all --graph`
++ `git revert HEAD~1` or `git revert 676ec`
++ `git checkout 676ec` - use `git checkout branch_name` to go back to last commit
+
 **Hadoop**
 + `hdfs dfs -ls -C hdfs:///path` - print only the name of the directories or files
 + `hdfs dfs -ls -S hdfs:///path` - list output sorted by size
@@ -540,9 +547,6 @@ superuse
 + `pkill -u pablelas` - kill all `pablelas`' processes
 + `pkill -u root python` - kill all `root` processes that match `python` pattern
 
-**GIT**
-+ `git diff --name-only --diff-filter=U` - show files with conflicts
-+ `git checkout -- file` - delete changes made to `file` file
 
 
 
