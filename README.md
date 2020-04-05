@@ -1,7 +1,6 @@
 # Linux Administration Basics
 
 **BASH**
-
 + `/etc/environment` is the first file loaded by `bash` shell
 + `/etc/shells` - system wide availables shells
 + `/etc/profile` - system wide file loaded with logins shells
@@ -30,6 +29,7 @@
 + files loaded in non-login shells - `~/.bashrc`
 + `aliases` and exported `variables` are inhereited by sub-shells
 + `uuidgen` - generate random uuid like this `58847587-38ae-485b-be63-0d5cac6c8a6b`
++ `elinks` - text based browser
 
 **GIT**
 + `git diff --name-only --diff-filter=U` - show files with conflicts
@@ -380,11 +380,13 @@ superuse
 + `vgextend vgtest /dev/sdb4` - add new `PV` `/dev/sdb4` to `vgtest` `VG`
 + `vgdisplay` - show information about system VGs, `vgs` as less detailed
 + `lvcreate --name lvexam --size 1G vgexam` - create `LV` `lvexam` with the size of `1GB` out of `VG` `vgexam `
++ `lvcreate -l 100%FREE -n lvbooks2 vgbooks` - create `LV` using 100% of free space of the `VG` `vgbooks`
 + `lvcreate --name lvexam --size 3.99G vgexam` - you can use `X.YY` notation with `--size` parameter
 + `lvdisplay` - show information about system LVs in table view
 + `lvremove vgexam/lvexam` - remove `LV` `lvexam` out of `VG` `vgexam`
 + `lvrename vgdata/lv-data vgdata/lvdata` - rename `lv-data` to `lvdata`
 + `lvresize --size 2GB vgexam/lvexam` - resize `LV` `lvexam`
++ `lvresize --resizefs -L -100M /dev/vgbooks/lvbooks` - resize LV and resize the FS above him
 + `lvresize -L +500M /dev/vgdata/lvdata` - same as above command but other syntax
 + `lvcreate --snapshot --size 100M --name lvexam-snap vgexam/lvexam`
 + `mkswap /dev/sdb4` - format `/dev/sdb4` as `swap` filesystem
@@ -395,6 +397,8 @@ superuse
 + `mkfs -t xfs /dev/mapper/secret` - you CANNOT format a encrypted partition if is not opened before
 + `cryptsetup close secret` - close the encrypted partition
 + `/etc/crypttab` -  describes encrypted block devices that are set up during system boot. If we add an entry in this file with our encrypted partition the system will ask us at boot time for the password of the encrypted partition
++ `mdadm --create /dev/md0 --level=1 --raid-disks=2 /dev/sdb1 /dev/sdb2` - create software RAID device `/dev/md0` out of 2 partitions
++ `mdadm --create --help`
 
 **Monitoring System**
 + `var/log/messages` - contains global system messages, including the messages that are logged during system startup
@@ -547,7 +551,9 @@ superuse
 + `pkill -u pablelas` - kill all `pablelas`' processes
 + `pkill -u root python` - kill all `root` processes that match `python` pattern
 
-
+**Managing Services**
++ `htpasswd` -  used to store usernames and password for basic authentication of HTTP users
++ `httpd-manual` - package for provide information about configuring an HTTPD server
 
 
 **Biografía**
