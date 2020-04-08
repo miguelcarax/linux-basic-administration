@@ -52,6 +52,10 @@
 **Python**
 + `pip show sparkmagic`
 + `pip install numpy`
++ `pip-check` - https://pypi.org/project/pip-check/
+
+**VIM**
++ `:%s/\s\+$//e` - remove all trailling spaces
 
 **Security**
 + `man limits.conf` - information about `ulimit` 
@@ -560,3 +564,5 @@ superuse
 + Rethinking PID 1 - http://0pointer.de/blog/projects/systemd.html
 + Systemd webpage - https://www.freedesktop.org/wiki/Software/systemd/
 + ¿What is the purpose of the `initramfs` file?  - https://wiki.gentoo.org/wiki/Initramfs/Guide
++ Yum cheatsheet - https://access.redhat.com/sites/default/files/attachments/rh_yum_cheatsheet_1214_jcs_print-1.pdf
++ Conda Cheatsheet - https://docs.conda.io/projects/conda/en/latest/_downloads/843d9e0198f2a193a3484886fa28163c/conda-cheatsheet.pdf
