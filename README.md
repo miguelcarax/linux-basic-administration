@@ -220,6 +220,13 @@
 + `iptables -A INPUT -p icmp -j DROP` - disable ping from outside
 + `iptables-save >> /etc/sysconfig/iptables-config` - save ip tables runtime configuration to persistent configuration files
 + `iptables` packet filtering logs are manage by kernel, use `dmesg` to visualize
++ `named-checkconf` - check if `named.conf` is correctly configured
++ `named-checkzone example.com /var/named/forward.example.com` - check if `exampe.com.` zone configuration file is properly configured
++ `unbound-checkconf` - check if `/etc/unbound/unbound.conf` configuraton file it's properly defined
++ `dig goo.gl +short` - looks up for `goo.gl` IPs and displays it
++ `dig +trace www.google.com` - like `traceroute` but with DNS
++ `dig @8.8.8.8 www.google.com` - asks NS `8.8.8.8` for `www.google.com` host IP
+
 
 **Managing users**
 + `/etc/passwd` - is a list of users recognized by the system.
@@ -403,6 +410,9 @@ superuse
 + `/etc/crypttab` -  describes encrypted block devices that are set up during system boot. If we add an entry in this file with our encrypted partition the system will ask us at boot time for the password of the encrypted partition
 + `mdadm --create /dev/md0 --level=1 --raid-disks=2 /dev/sdb1 /dev/sdb2` - create software RAID device `/dev/md0` out of 2 partitions
 + `mdadm --create --help`
++ `/etc/exports` - configuration file for paths to be available through a NFS server
++ `showmount -e` - show mount information for an NFS server, `-e` for exports
++ `mysql_secure_installation` - setup basic security on just installed MariaDB
 
 **Monitoring System**
 + `var/log/messages` - contains global system messages, including the messages that are logged during system startup
@@ -566,3 +576,5 @@ superuse
 + ¿What is the purpose of the `initramfs` file?  - https://wiki.gentoo.org/wiki/Initramfs/Guide
 + Yum cheatsheet - https://access.redhat.com/sites/default/files/attachments/rh_yum_cheatsheet_1214_jcs_print-1.pdf
 + Conda Cheatsheet - https://docs.conda.io/projects/conda/en/latest/_downloads/843d9e0198f2a193a3484886fa28163c/conda-cheatsheet.pdf
++ https://docstore.mik.ua/orelly/networking_2ndEd/dns/index.htm
++ https://docstore.mik.ua/orelly/networking_2ndEd/tshoot/index.htm
