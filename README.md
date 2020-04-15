@@ -43,6 +43,7 @@
 + `hdfs dfs -ls -S hdfs:///path` - list output sorted by size
 + `hdfs dfs -count -h hdfs:///path` - get numer of files, directories and size of `/path` in human-redeable
 + `HADOOP_ROOT_LOGGER=DEBUG,console hadoop distcp...` - get `DEBUG` info when runing `hdfs` command 
++ `HADOOP_OPTS="$HADOOP_OPTS -Xmx4G hdfs dfs ..."`- launch HDFS client JVM with `4GB`
 + `yarn application -list`
 
 **SQL**
@@ -56,6 +57,7 @@
 
 **VIM**
 + `:%s/\s\+$//e` - remove all trailling spaces
++ `:g/^$/d` - delete all blank lines
 
 **Security**
 + `man limits.conf` - information about `ulimit` 
@@ -431,7 +433,9 @@ superuse
 + `/proc/cmdline` - show with which options was the kernel launched
 + `ipcs` -  default it shows information about all three resources: shared memory segments, message queues, and semaphore arrays.
 + `renice 0 -u user` - set niceness of `0` to all processes owned by `user` user
-+ `renice -20 9207` - set niceness of `-20` o the process with pid `9207` 
++ `renice -20 9207` - set niceness of `-20` o the process with pid `9207`
++ `nice --10 cat` - setup negative `-10` niceness to `cat` program
++ `ps -lF --ppid=2` - show kernel spawned processes (`PPID 2`
 + `ps xawf -eo pid,user,cgroup,args` - Monitor which process belong to which cgroup
 + `ps -fx` - processes owned by you
 + `ps -fU user -C command` - processed runned by `user` with `command` in execution command
@@ -578,3 +582,5 @@ superuse
 + Conda Cheatsheet - https://docs.conda.io/projects/conda/en/latest/_downloads/843d9e0198f2a193a3484886fa28163c/conda-cheatsheet.pdf
 + https://docstore.mik.ua/orelly/networking_2ndEd/dns/index.htm
 + https://docstore.mik.ua/orelly/networking_2ndEd/tshoot/index.htm
++ https://cheatography.com/airlove/cheat-sheets/journalctl/
++ https://wiki.ubuntu.com/Kernel/Reference/stress-ng
