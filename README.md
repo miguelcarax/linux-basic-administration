@@ -80,6 +80,13 @@
 + `openssl x509 -inform der -in myapplication.cer -out myapplication.pem` - convert `x509` certificate from `DER` format to `PEM`
 + `openssl pkcs12 -in certificado.p12 -out certificado.pem -clcerts -nokeys` - extract the `x509` public certificate out of a `PKCS#12` store
 + `openssl pkcs12 -in certificado.p12 -out certificado_key.pem -nocerts -nodes` - extract the private key out of a `PKCS#12` store
++ `openssl genrsa -out rsa.key -aes256 1024` - generate RSA key pairs (private/public) with AES encryption
++ `openssl rsa -in rsa.key -out rsa.pem -pubout -outform PEM` - get the public key out of a private key
++ `openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.cr` - generate self signed cert
++ `openssl rsa -in server.key -out server.key.unlocked` - eliminate the _passphrase_ need from `server.key`
++ `eval $(ssh-agent)` - use `ssh-agent`
++ `ssh-add ~/.ssh/id_rsa` - add new key to the `ssh-agent`
++ `pssh`,`prsync`,`pscp`,`plurp` - _parallel_ ssh programs
 
 
 **Logs**
@@ -122,6 +129,7 @@
 + ` /etc/localtime -> /usr/share/zoneinfo/Europe/Madrid`
 + `/etc/ntp.conf` - `ntpd` daemon configuration file
 + `date -Iseconds` - print current time with ISO 8601 format, ex: `2020-03-17T10:57:17+0100`
++ `clockdiff` - measure clock difference between hosts
 
 **Managing software**
 + `ldd /bin/bash` - list all libraries needed by `bash` binary
@@ -165,11 +173,14 @@
 + `man -k keyword` - let's you find _commands_ based on `keyword`
 
 **Network**
++ `man 5 hosts_access`-  format of host access control files
 + `/etc/services` - provides information about what ports are asigned to which services assigned by the IANA
 + `/etc/nsswitch.conf` - defines in which order does the system look for information
 + `/proc/sys/net/*` - linux kernel configuration values
 + `sysctl net.ipv4.icmp_echo_ignore_broadcasts=1` - configure kernel network parameter, add to `/etc/sysctl.conf` for peristence against reboots
 + `hostnamectl set-hostname myserver.localdomain` - change the server hostname, do not need reboot to take effect
++ `arping` - send ARP REQUEST to a neighbour host
++ `/proc/net/arp` - current ARP table
 + `ping -f goo.gl` - do a ping flood
 + `ping -I eth1 goo.gl` - do a ping to `goo.gl` through the `eth1` interface
 + `traceroute goo.gl` - print the route packets trace to network host
@@ -179,13 +190,15 @@
 + `nmcli` and `nmtui` (throught `NetworkManager` service) or `vim` (manually) modify interfaces configuration files in `/etc/sysconfig/network-scripts/*` but `systemd-networkd` service is responsible to apply this configurations to network interfaces
 + `/usr/share/doc/initscripts-*/sysconfig.txt` - information about `/etc/sysconfig/network-scripts/ifcfg-X` configuration files
 + `ipcalc -bn 10.0.0.0/8` - get broadcast and mask out of `10.0.0.0/8` IP address
++ `netplan` - Netplan is a utility for easily configuring networking on a linux system
 + `/etc/sysconfig/network` - file where you can set up the hostname, gateway, domain name, etc
 + Lines in `/etc/sysconfig/network-scripts/route-ifname` are passed as arguments to `ip route` when the corresponding interface is configured. Could be find at the end of `man ifup`
-+ `ip link show` - show current network devices (link layer)
 + `man ip-address`, `man ip-link`, `man ip-route`, `man ip-neighbour` - general info in `man ip`
++ `ip link show` - show current network devices (link layer)
 + `ip link help`, `ip addr help`, etc
 + `ip -c link` - print command ouput with colors
 + `ip link set eht0 down` - set down the `eth0` network interface, same for `up`
++ `ip link set mtu 1500 dev eth0` - set `mtu` to `1500`
 + `ifup eth1` or `ifdown eth1` - bridown down/up `eth1` network, **force reload** of `/etc/sysconfig/network-scripts/ifcfg-eth1` configuration file
 + `ip neigh show` - show ARP table (layer 2)
 + `ip -d addr` - show more detailed information
@@ -197,6 +210,7 @@
 + `ip route del default` - delete default gateway in routing table
 + `ip route add 132.236.220.64/26 via 132.236.212.6 dev eth1` - add entry to routing table
 + `ip route add default via 132.236.227.1 dev eth0` - add default gateway in routing table (`0.0.0.0`)
++ `dhclient eth0` - ask for an IP for `eth0` interface 
 + `ss -tuna` - list all connections, both TCp and UDP and do not resolve PORTS to SERVICES
 + `ss -tnl` - list all listening TCP connections
 + `ss -tanp` - list all TCP connections along with the process which is establishing the connection
@@ -205,6 +219,7 @@
 + `ss -t state STABLISHED` - display all TCP established connections
 + `ss dst 90.169.220.26` - display all connections made from `90.169.220.26`
 + `ss src :ssh` - display all SSH connections at the moment or `ss sport :22`
++ `ss state listening sport = :smtp` - display if there is any service listening on `smtp` protocol port
 + `ss -o` - show how long was the connection established
 + `ss -r` - resolve from IP to DNS name in the connections
 + `firewalld` manages `iptables` that are used by `netfilter` kernel module
@@ -228,6 +243,10 @@
 + `dig goo.gl +short` - looks up for `goo.gl` IPs and displays it
 + `dig +trace www.google.com` - like `traceroute` but with DNS
 + `dig @8.8.8.8 www.google.com` - asks NS `8.8.8.8` for `www.google.com` host IP
++ `/etc/resolv.conf` -  DNS client configuration file
++ `tcpdump -i eth0 -s 65535 -w capture.pcap port 22`
++ `tcpdump -i lo  proto ICMP`
++ `iptraf-ng` - a console-based network monitoring utility 
 
 
 **Managing users**
@@ -525,6 +544,7 @@ superuse
 + `systemctl start /path/to/foo.service` - start `foo.service` by path
 + `systemctl` - show the status of everything that systemd controls
 + `systemctl -t help` - list available unit types
++ `systemctl status 3914` - will return the status of the service who owns the `3914` PID process
 + `systemctl cat docker` - cat the `docker.service` unit file
 + `systemctl list-timers` - get information about `systemd.timers` in the system
 + `systemctl list-units dock*` - list all units which match the `dock*` expression
@@ -542,12 +562,14 @@ superuse
 + `systemctl is-active docker.service`
 + `systemctl isolate rescue.target` - change execution mode to `rescue.target`
 + `systemctl rescue` - same as above command
++ `systemctl kill --signal SIHUP named.service` - send `SIGHUP` signal to all processes owned by `named.service`
 + `systemctl daemon-reload docker.service` - Reloads when a new service is created or any configuration is modified.
 + `systemctl reboot` - same as `systemctl start reboot.target --irreversible`
 + `systemctl poweroff` - shutdown the system
 + Unit files stored in `/etc/systemd/`system override those from `/lib/systemd/system`
 + `/etc/systemd/system/docker.service.d/http-proxy.conf` - unit additional configuration file
 + `systemd-analyze blame` - get info about systemd startup time order by unit time
++ `systemd-delta` - Find overridden configuration files
 + `/run/systemd` - systemd places its local communications sockets
 + `/sbin/telinit 5` - change the runlevel of the system
 + `/etc/inittab` - determines which level should be the system run
@@ -584,3 +606,6 @@ superuse
 + https://docstore.mik.ua/orelly/networking_2ndEd/tshoot/index.htm
 + https://cheatography.com/airlove/cheat-sheets/journalctl/
 + https://wiki.ubuntu.com/Kernel/Reference/stress-ng
++ https://netplan.io/
++ https://www.ntop.org/
++ https://www.snort.org/
