@@ -609,3 +609,5 @@ superuse
 + https://netplan.io/
 + https://www.ntop.org/
 + https://www.snort.org/
++ https://pypi.org/project/soit/
++ https://github.com/radanalyticsio/spark-operator
