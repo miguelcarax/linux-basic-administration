@@ -50,6 +50,12 @@
 + `DESCRIBE FORMATTED table_name PARTITION (dt='20131023')` - show location of an specific partition
 + `SHOW CREATE TABLE table_name` - get the DDL of the table
 
+**Docker, Kubernetes, Helm**
++ `helm repo add stable https://kubernetes-charts.storage.googleapis.com/`
++ `helm repo list`
++ `helm install spark-on-k8s  incubator/sparkoperator --namespace spark-operator`
++ `helm pull incubator/sparkoperator`
+
 **Python**
 + `pip show sparkmagic`
 + `pip install numpy`
