@@ -30,6 +30,7 @@
 + `aliases` and exported `variables` are inhereited by sub-shells
 + `uuidgen` - generate random uuid like this `58847587-38ae-485b-be63-0d5cac6c8a6b`
 + `elinks` - text based browser
++ `sudo -- sh -c 'whoami; whoami'` - run two commands at once with `sudo`
 
 **GIT**
 + `git diff --name-only --diff-filter=U` - show files with conflicts
