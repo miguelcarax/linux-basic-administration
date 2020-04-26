@@ -253,8 +253,10 @@
 + `/etc/resolv.conf` -  DNS client configuration file
 + `tcpdump -i eth0 -s 65535 -w capture.pcap port 22`
 + `tcpdump -i lo  proto ICMP`
++ `man pcap-filter` - syntax for filtering packets with `tcpdump`
 + `iptraf-ng` - a console-based network monitoring utility 
-
++ `tc qdisc add dev eth0 root netem loss random 40` - generate random errors in `eth0` network interface
++ `tc qdisc del dev eth0 root` - clean the above mess
 
 **Managing users**
 + `/etc/passwd` - is a list of users recognized by the system.
