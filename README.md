@@ -73,6 +73,7 @@
 + `/etc/pam.d/login` - PAM configuration file for `login` command
 + `man pam_X` - get information about `pam_X` PAM module
 + `man pam.d` - get information about generic PAM modules
++ `semanage login -l`
 
 **TLS**
 + `openssl s_client -connect myservice.es:443 -showcerts </dev/null` - print all certificates in the certificate chain presented by the SSL service
@@ -620,3 +621,4 @@ superuse
 + https://www.snort.org/
 + https://pypi.org/project/soit/
 + https://github.com/radanalyticsio/spark-operator
++ https://www.electronicdesign.com/technologies/embedded-revolution/article/21800663/selinux-101-what-you-should-know
