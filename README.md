@@ -32,6 +32,10 @@
 + `elinks` - text based browser
 + `sudo -- sh -c 'whoami; whoami'` - run two commands at once with `sudo`
 
+**Ansible**
++ `molecule init role my-new-role` - create new role
++ `molecule init scenario -r my-role-name`
+
 **GIT**
 + `git diff --name-only --diff-filter=U` - show files with conflicts
 + `git checkout -- file` - delete changes made to `file` file
@@ -61,6 +65,14 @@
 + `pip show sparkmagic`
 + `pip install numpy`
 + `pip-check` - https://pypi.org/project/pip-check/
++ `python3 -m venv /path/to/new/virtual/environment`
++ (whitin a `venv`) `pip install package` - install package locally to the virualenv
++ `molecule create` - create infraestructure for ansible-playbook role tests
++ `molecule list` - list created infrastructure
++ `molecule converge` - test the ansible-playbook role against the infrastructure
++ `molecule login`
++ `molecule test`
++ `molecule create`
 
 **VIM**
 + `:%s/\s\+$//e` - remove all trailling spaces
