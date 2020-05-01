@@ -6,6 +6,7 @@
 + `/etc/profile` - system wide file loaded with logins shells
 + `/etc/bashrc` -  system wide file loaded with logins and non-logins shells
 + `compgen -c` - list all system binaries in `$PATH`
++ `help ulimit` - show _help_ page for built-in programs
 + `~+` - current working directory (`$PWD`)
 + `$_` - final argument in last executed command
 + `sudo !!` - executes last command as sudo
@@ -525,6 +526,7 @@ superuse
 + `systemd-run --unit="test" --on-active="60" touch /tmp/file` - run the `test.service` from `60` seconds from now
 + `man 7 systemd.time` - information about `systemd.timer` scheduler format
 + `echo date | at now +5min` - execute `date` command in 5 minutes
++ `stress-ng -c 8 -i 4 -m 6 -t 20s` - launch a CPU, I/O and memory intensive process
 
 **GRUB**
 + `grub2-install /dev/sda ` - Install grub on disk
