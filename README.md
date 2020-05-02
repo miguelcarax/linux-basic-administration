@@ -199,7 +199,7 @@
 + `/etc/nsswitch.conf` - defines in which order does the system look for information
 + `/proc/sys/net/*` - linux kernel configuration values
 + `sysctl net.ipv4.icmp_echo_ignore_broadcasts=1` - configure kernel network parameter, add to `/etc/sysctl.conf` for peristence against reboots
-+ `hostnamectl set-hostname myserver.localdomain` - change the server hostname, do not need reboot to take effect
++ `hostnamectl set-hostname myserver.localdomain` - change the server hostname, do not need reboot to take effectf
 + `arping` - send ARP REQUEST to a neighbour host
 + `/proc/net/arp` - current ARP table
 + `ping -f goo.gl` - do a ping flood
@@ -293,6 +293,7 @@
 + `/etc/skel/*` - all the content of this directory will be copied to new created users' home
 + `useradd -D -s /bin/bash` - set `bash` as default shell for all new created users, modify `/etc/default/useradd` file
 + `useradd -c "David Hilbert" -d /home/math/hilbert -g hilbert -G faculty -m -s /bin/tcsh hilbert`
++ `mkhomedir_helper marquitos` - binary that creates home directories
 + `groupadd users` - create group `users`
 + `gpasswd --delete miguelones sudo` - remove `miguelones` user from `sudo` group
 + `groupmems --group sudo --delete miguelones` - delete `miguelones` user from `sudo` group
@@ -311,6 +312,7 @@
 
 **Managing files**
 + `file` - determine file type
++ `cp -r /etc/skel/. /home/school/harry/` - copy all files, including the hiddend ones (`.abcd`)
 + `dd if=/dev/zero of=/tmp/file bs=1M count=100` - create a file with _zeros_ with size `1MB` * `100`
 + `cpi -ivd < archive.cpio` - extract the content of the `archive.cpio` archive into current directory
 + `tar -cf file.bzip2 --bzip file` - create a `bzip2` tarball
