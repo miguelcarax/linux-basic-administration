@@ -205,9 +205,8 @@
 + `ping -f goo.gl` - do a ping flood
 + `ping -I eth1 goo.gl` - do a ping to `goo.gl` through the `eth1` interface
 + `traceroute goo.gl` - print the route packets trace to network host
-+ `ss -tuna` is the same as `netstat -tulpn
 + `netcat -l 4444` - listen on port `4444`
-+ `namp 192.168.0.23` + do a port scan `0-65536` on the IP address `192.168.0.23`
++ `nmap 192.168.0.23` + do a port scan `0-65536` on the IP address `192.168.0.23`
 + `nmcli` and `nmtui` (throught `NetworkManager` service) or `vim` (manually) modify interfaces configuration files in `/etc/sysconfig/network-scripts/*` but `systemd-networkd` service is responsible to apply this configurations to network interfaces
 + `/usr/share/doc/initscripts-*/sysconfig.txt` - information about `/etc/sysconfig/network-scripts/ifcfg-X` configuration files
 + `ipcalc -bn 10.0.0.0/8` - get broadcast and mask out of `10.0.0.0/8` IP address
@@ -241,6 +240,7 @@
 + `ss dst 90.169.220.26` - display all connections made from `90.169.220.26`
 + `ss src :ssh` - display all SSH connections at the moment or `ss sport :22`
 + `ss state listening sport = :smtp` - display if there is any service listening on `smtp` protocol port
++ `ss -nl src localhost and src :smtp` - check if `smtp` service is listening on `localhost`
 + `ss -o` - show how long was the connection established
 + `ss -r` - resolve from IP to DNS name in the connections
 + `firewalld` manages `iptables` that are used by `netfilter` kernel module
