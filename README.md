@@ -35,7 +35,7 @@
 
 **Ansible**
 + `molecule init role my-new-role` - create new role
-+ `molecule init scenario -r my-role-name`
++ `molecule init scenario --role-name logs --driver-name docker` - init molecule on existing role
 
 **GIT**
 + `git diff --name-only --diff-filter=U` - show files with conflicts
@@ -638,3 +638,4 @@ superuse
 + https://pypi.org/project/soit/
 + https://github.com/radanalyticsio/spark-operator
 + https://www.electronicdesign.com/technologies/embedded-revolution/article/21800663/selinux-101-what-you-should-know
++ https://testinfra.readthedocs.io/en/latest/
