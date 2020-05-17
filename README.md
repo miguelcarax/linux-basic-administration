@@ -32,6 +32,7 @@
 + `uuidgen` - generate random uuid like this `58847587-38ae-485b-be63-0d5cac6c8a6b`
 + `elinks` - text based browser
 + `sudo -- sh -c 'whoami; whoami'` - run two commands at once with `sudo`
++ `sleep infinity` - sleeps for ever and ever
 
 **Ansible**
 + `molecule init role my-new-role` - create new role
