@@ -52,6 +52,7 @@
 + `HADOOP_ROOT_LOGGER=DEBUG,console hadoop distcp...` - get `DEBUG` info when runing `hdfs` command 
 + `HADOOP_OPTS="$HADOOP_OPTS -Xmx4G hdfs dfs ..."`- launch HDFS client JVM with `4GB`
 + `yarn application -list`
++ `hdfs getconf -confkey fs.s3a.buffer.dir` - get the value of a specific configuration key
 
 **SQL**
 + `DESCRIBE FORMATTED table_name PARTITION (dt='20131023')` - show location of an specific partition
