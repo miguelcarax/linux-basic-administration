@@ -33,6 +33,7 @@
 + `elinks` - text based browser
 + `sudo -- sh -c 'whoami; whoami'` - run two commands at once with `sudo`
 + `sleep infinity` - sleeps for ever and ever
++ `xmllint --format "${xmlfile}"` - check if xml is correctly built
 
 **Ansible**
 + `molecule init role my-new-role` - create new role
