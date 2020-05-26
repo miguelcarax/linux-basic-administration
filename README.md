@@ -45,6 +45,7 @@
 + `git log --oneline --decorate --all --graph`
 + `git revert HEAD~1` or `git revert 676ec`
 + `git checkout 676ec` - use `git checkout branch_name` to go back to last commit
++ `git push origin --delete test` - delete remote branch
 
 **Hadoop**
 + `hdfs dfs -ls -C hdfs:///path` - print only the name of the directories or files
