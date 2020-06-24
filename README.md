@@ -34,6 +34,7 @@
 + `sudo -- sh -c 'whoami; whoami'` - run two commands at once with `sudo`
 + `sleep infinity` - sleeps for ever and ever
 + `xmllint --format "${xmlfile}"` - check if xml is correctly built
++ `split -l 10000 data.csv` - split a file in multiple files, in this case in files with 10.000 lines each one
 
 **Ansible**
 + `molecule init role my-new-role` - create new role
