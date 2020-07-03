@@ -40,6 +40,9 @@
 + `molecule init role my-new-role` - create new role
 + `molecule init scenario --role-name logs --driver-name docker` - init molecule on existing role
 
+**AWS**
++ `curl http://169.254.169.254/latest/meta-data/instance-type` - get information about the instance you are logged in
+
 **GIT**
 + `git diff --name-only --diff-filter=U` - show files with conflicts
 + `git checkout -- file` - delete changes made to `file` file
