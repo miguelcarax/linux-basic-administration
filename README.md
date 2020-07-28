@@ -60,6 +60,7 @@
 + `HADOOP_OPTS="$HADOOP_OPTS -Xmx4G hdfs dfs ..."`- launch HDFS client JVM with `4GB`
 + `yarn application -list`
 + `hdfs getconf -confkey fs.s3a.buffer.dir` - get the value of a specific configuration key
++ `hive -e '!env' | grep HIVE_HOME` - get `HIVE_HOME` variable directly from Hive
 
 **SQL**
 + `DESCRIBE FORMATTED table_name PARTITION (dt='20131023')` - show location of an specific partition
