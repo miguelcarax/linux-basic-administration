@@ -77,6 +77,7 @@
 + `pip install numpy`
 + `pip-check` - https://pypi.org/project/pip-check/
 + `python3 -m venv /path/to/new/virtual/environment`
++ `virtualenv -p python3.7 .venv` create virtualenv with specific python version
 + (whitin a `venv`) `pip install package` - install package locally to the virualenv
 + `molecule create` - create infraestructure for ansible-playbook role tests
 + `molecule list` - list created infrastructure
