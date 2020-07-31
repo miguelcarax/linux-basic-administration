@@ -66,6 +66,13 @@
 + `DESCRIBE FORMATTED table_name PARTITION (dt='20131023')` - show location of an specific partition
 + `SHOW CREATE TABLE table_name` - get the DDL of the table
 
+**Influx Query Language**
++ `SHOW TAG KEYS FROM measurement`
++ `SHOW TAG VALUES FROM yarn_cluster WITH KEY =~ /.*/`
++ `SHOW TAG VALUES FROM yarn_cluster WITH KEY !~ /.*host.*/`
++ `SHOW FIELD KEYS FROM measurement`
++ `SELECT * FROM measurement LIMIT 10`
+
 **Docker, Kubernetes, Helm**
 + `helm repo add stable https://kubernetes-charts.storage.googleapis.com/`
 + `helm repo list`
