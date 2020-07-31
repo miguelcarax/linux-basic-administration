@@ -61,6 +61,7 @@
 + `yarn application -list`
 + `hdfs getconf -confkey fs.s3a.buffer.dir` - get the value of a specific configuration key
 + `hive -e '!env' | grep HIVE_HOME` - get `HIVE_HOME` variable directly from Hive
++ `yarn jar /usr/hdp/3.1.4.0-315/hadoop-mapreduce/hadoop-mapreduce-examples.jar pi -Dmapreduce.map.memory.mb=512 -Dmapreduce.reduce.memory.mb=512 1 1` - launch bare-minimum MapReduce Job in Hortonworks cluster
 
 **SQL**
 + `DESCRIBE FORMATTED table_name PARTITION (dt='20131023')` - show location of an specific partition
