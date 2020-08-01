@@ -71,8 +71,11 @@
 + `SHOW TAG KEYS FROM measurement`
 + `SHOW TAG VALUES FROM yarn_cluster WITH KEY =~ /.*/`
 + `SHOW TAG VALUES FROM yarn_cluster WITH KEY !~ /.*host.*/`
++ `SHOW TAG VALUES WITH KEY = "appname" WHERE "system" = 'emr' AND "project" = '${SQUAD}'`
 + `SHOW FIELD KEYS FROM measurement`
 + `SELECT * FROM measurement LIMIT 10`
++ `DROP MEASUREMENT measurement`
++ `SELECT *::field FROM "h2o_feet"` - select all fields from a measurement
 
 **Docker, Kubernetes, Helm**
 + `helm repo add stable https://kubernetes-charts.storage.googleapis.com/`
