@@ -76,6 +76,7 @@
 + `SELECT * FROM measurement LIMIT 10`
 + `DROP MEASUREMENT measurement`
 + `SELECT *::field FROM "h2o_feet"` - select all fields from a measurement
++ `SELECT sum("vcores") FROM ( select last(vcoreSeconds) AS "vcores", "appname" from "yarn_apps" WHERE $timeFilter AND "appname" =~ /^miremr.*$/ GROUP BY "id",time(1d))  GROUP BY "appname", time(1d)`
 
 **Docker, Kubernetes, Helm**
 + `helm repo add stable https://kubernetes-charts.storage.googleapis.com/`
