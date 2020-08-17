@@ -80,6 +80,7 @@
 + ``
 
 **Docker, Kubernetes, Helm**
++ `kubectl --restart=Never run eks-net-test -ti --image=registry.example.es/thirdparties/busybox -- ash`
 + `helm repo add stable https://kubernetes-charts.storage.googleapis.com/`
 + `helm repo list`
 + `helm install spark-on-k8s  incubator/sparkoperator --namespace spark-operator`
