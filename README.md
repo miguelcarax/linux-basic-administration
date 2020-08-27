@@ -97,9 +97,8 @@
 + `molecule create` - create infraestructure for ansible-playbook role tests
 + `molecule list` - list created infrastructure
 + `molecule converge` - test the ansible-playbook role against the infrastructure
-+ `molecule login`
-+ `molecule test`
-+ `molecule create`
++ `molecule converge -- -vvv` - launch in _debug_ mode
++ `molecule login --host edge` - enter the `edge` machine
 
 **VIM**
 + `:%s/\s\+$//e` - remove all trailling spaces
