@@ -279,9 +279,13 @@
 + `iptables -L` - show current iptables rules
 + `iptables -L -v` - show current (verbose) iptables rules
 + `iptables -P INPUT DROP` - deny all input traffic by default
-+ `iptables -L INPUT -p tcp --dport 22 -j ACCEPT` - allow incoming SSH traffic
++ `iptables -A INPUT -p tcp --dport 22 -j ACCEPT` - allow incoming SSH traffic
++ `iptables -A INPUT -p tcp -m state --state ESTABLISHED,RELATED -j ACCEPT` - Allow tcp response packets
 + `iptables -A INPUT -p icmp -j DROP` - disable ping from outside
-+ `iptables-save >> /etc/sysconfig/iptables-config` - save ip tables runtime configuration to persistent configuration files
++ `iptables -A OUTPUT -m owner --uid-owner 1000 -j DROP` - disable ping for certains user
++ `iptables -I OUTPUT -p icmp -j LOG --log-level warning --log-uid` - log to system all denied ping connections
++ `iptables -A OUTPUT -m owner --uid-owner 1000 -j DROP` - disable ping for certains user
++ `iptables-save >> /etc/sysconfig/iptables-config` - save ip tables runtime configuration to persistent configuration files. Need `iptables-services` package installed and enabled
 + `iptables` packet filtering logs are manage by kernel, use `dmesg` to visualize
 + `named-checkconf` - check if `named.conf` is correctly configured
 + `named-checkzone example.com /var/named/forward.example.com` - check if `exampe.com.` zone configuration file is properly configured
