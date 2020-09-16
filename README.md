@@ -42,6 +42,7 @@
 
 **AWS**
 + `curl http://169.254.169.254/latest/meta-data/instance-type` - get information about the instance you are logged in
++ `curl http://checkip.amazonaws.com` - get the public IP of the instance
 
 **GIT**
 + `git diff --name-only --diff-filter=U` - show files with conflicts
