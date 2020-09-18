@@ -129,6 +129,7 @@
 + `openssl pkcs12 -in certificado.p12 -out certificado_key.pem -nocerts -nodes` - extract the private key out of a `PKCS#12` store
 + `openssl genrsa -out rsa.key -aes256 1024` - generate RSA key pairs (private/public) with AES encryption
 + `openssl rsa -in rsa.key -out rsa.pem -pubout -outform PEM` - get the public key out of a private key
++ `openssl rsa -in rsa.key -noout -check` - check if RSA private key it's ok
 + `openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.cr` - generate self signed cert
 + `openssl rsa -in server.key -out server.key.unlocked` - eliminate the _passphrase_ need from `server.key`
 + `eval $(ssh-agent)` - use `ssh-agent`
@@ -313,6 +314,7 @@
 + `chage -d 0 username` - invalidate user password and force update
 + `passwd -d usename` - invalidate user password and force update
 + `passwd -S miguelones` - get info about `miguelones` password
++ `pwconv ` - This will create the necessary entries in the /etc/shadow file of those users who are in /etc/passwd but not in the /etc/shadow file and delete entries of invalid users from the /etc/shadow file whose don’t have entries in /etc/passwd file.
 + `echo password | passwd --stdin username` - pass the `username` `password` to `passwd` from `stdin` pipe
 + An `INACTIVE` account may not login
 + `chsh -s /bin/zsh username` - change `username` default shell
