@@ -83,9 +83,12 @@
 
 **Docker, Kubernetes, Helm**
 + `kubectl --restart=Never run eks-net-test -ti --image=registry.example.es/thirdparties/busybox -- ash`
++ `kubectl expose deployment nginx --port=80 --target-port=800`
 + `helm repo add stable https://kubernetes-charts.storage.googleapis.com/`
 + `helm repo list`
 + `helm install spark-on-k8s  incubator/sparkoperator --namespace spark-operator`
++ `helm pull incubator/sparkoperator`
++ `helm upgrade exernaldns -f values.yaml .`
 + `helm pull incubator/sparkoperator`
 
 **Python**
