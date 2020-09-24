@@ -351,6 +351,7 @@
 **Managing files**
 + `file` - determine file type
 + `cp -r /etc/skel/. /home/school/harry/` - copy all files, including the hiddend ones (`.abcd`)
++ `rsync -av --progress sourcefolder /destinationfolder --exclude thefoldertoexclude`
 + `dd if=/dev/zero of=/tmp/file bs=1M count=100` - create a file with _zeros_ with size `1MB` * `100`
 + `cpi -ivd < archive.cpio` - extract the content of the `archive.cpio` archive into current directory
 + `tar -cf file.bzip2 --bzip file` - create a `bzip2` tarball
