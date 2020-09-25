@@ -90,9 +90,12 @@
 + `helm repo add stable https://kubernetes-charts.storage.googleapis.com/`
 + `helm repo list`
 + `helm install spark-on-k8s  incubator/sparkoperator --namespace spark-operator`
++ `helm install --name external-dns --namespace tools -f values.yaml .`
 + `helm pull incubator/sparkoperator`
 + `helm upgrade exernaldns -f values.yaml .`
 + `helm pull incubator/sparkoperator`
++ `helm ls --all external-dns` - check the status of the release
++ `helm del --purge external-dns`- completely delete the release
 
 **Python**
 + `pip show sparkmagic`
