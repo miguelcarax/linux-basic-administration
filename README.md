@@ -96,6 +96,7 @@
 + `helm pull incubator/sparkoperator`
 + `helm ls --all external-dns` - check the status of the release
 + `helm del --purge external-dns`- completely delete the release
++ `helm template -x templates/configmap.yaml -f values.yaml .`
 
 **Python**
 + `pip show sparkmagic`
