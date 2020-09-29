@@ -93,6 +93,7 @@
 + `helm install --name external-dns --namespace tools -f values.yaml .`
 + `helm pull incubator/sparkoperator`
 + `helm upgrade exernaldns -f values.yaml .`
++ `helm upgrade exernaldns -f values.yaml --recreate-pods .`
 + `helm pull incubator/sparkoperator`
 + `helm ls --all external-dns` - check the status of the release
 + `helm del --purge external-dns`- completely delete the release
