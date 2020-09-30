@@ -390,6 +390,7 @@
 + `find . -perm -444 -perm /222 ! -perm /111`
 + `find / -xdev -nouser` - check for orphaned files after a user has been removed
 + `find . -printf "%T@ %Tc %p\n" | sort -n` - find all files in current dir and sort by modification time
++ `find /home/ -maxdepth 1 -type d '!' -exec test -e "{}/.bashrc" ';' -print` - find directories that not contain a specific file
 + `sed [address] operation [options]` - `sed` command syntax
 + `sed '' file` - same as `cat file`
 + `sed -n '1,5p' file` - print from line `1` to line `5`
