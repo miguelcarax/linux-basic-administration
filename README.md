@@ -98,6 +98,12 @@
 + `helm ls --all external-dns` - check the status of the release
 + `helm del --purge external-dns`- completely delete the release
 + `helm template -x templates/configmap.yaml -f values.yaml .`
++ `arkade install openfaas --gateways 3 --basic-auth`
++ `faas-cli store list`
++ `faas-cli store deploy nslookup`
++ `faas-cli template store list`
++ `faas-cli logs nslookup`
+
 
 **Python**
 + `pip show sparkmagic`
