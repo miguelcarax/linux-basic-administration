@@ -87,14 +87,14 @@
 **Docker, Kubernetes, Helm**
 + `kubectl --restart=Never run eks-net-test -ti --image=registry.example.es/thirdparties/busybox -- ash`
 + `kubectl expose deployment nginx --port=80 --target-port=800`
++ `helm search hub argo`
 + `helm repo add stable https://kubernetes-charts.storage.googleapis.com/`
 + `helm repo list`
++ `helm get values gitea`
 + `helm install spark-on-k8s  incubator/sparkoperator --namespace spark-operator`
 + `helm install --name external-dns --namespace tools -f values.yaml .`
-+ `helm pull incubator/sparkoperator`
-+ `helm upgrade exernaldns -f values.yaml .`
 + `helm upgrade exernaldns -f values.yaml --recreate-pods .`
-+ `helm pull incubator/sparkoperator`
++ `helm pull incubator/sparkoperator --untar`
 + `helm ls --all external-dns` - check the status of the release
 + `helm del --purge external-dns`- completely delete the release
 + `helm template -x templates/configmap.yaml -f values.yaml .`
