@@ -194,6 +194,7 @@
 + ` /etc/localtime -> /usr/share/zoneinfo/Europe/Madrid`
 + `/etc/ntp.conf` - `ntpd` daemon configuration file
 + `date -Iseconds` - print current time with ISO 8601 format, ex: `2020-03-17T10:57:17+0100`
++ `date -Iseconds --date "5 weeks ago 1 day ago"`
 + `clockdiff` - measure clock difference between hosts
 
 **Managing software**
