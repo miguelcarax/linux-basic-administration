@@ -56,6 +56,7 @@
 + `git push origin --delete test` - delete remote branch
 + `git diff HEAD^ HEAD` - diff between current commit and the ones before
 + `git show AA:foo` - show `foo` file content on commit `AA`
++ `git pull --rebase` - in case of conflict will prevail the local changes
 
 **Hadoop**
 + `hdfs dfs -ls -C hdfs:///path` - print only the name of the directories or files
